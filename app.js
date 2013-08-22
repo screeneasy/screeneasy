@@ -8,6 +8,10 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
+var everyauth = require('everyauth');
+var usersByGhId = {};
+var usersById = {};
+var nextUserId = 0;
 
 var app = express();
 
@@ -23,6 +27,29 @@ app.use(express.cookieParser('your secret here'));
 app.use(express.session());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
+
+function addUser (source, sourceUser) {
+  var user;
+  if (arguments.length === 1) { // password-based
+    user = sourceUser = source;
+    user.id = ++nextUserId;
+    return usersById[nextUserId] = user;
+  } else { // non-password-based
+    user = usersById[++nextUserId] = {id: nextUserId};
+    user[source] = sourceUser;
+  }
+  return user;
+}
+
+everyauth.github
+  .appId("")
+  .appSecret("")
+  .entryPath('/auth/github')
+  .callbackPath('/auth/github/callback')
+  .findOrCreateUser( function (sess, accessToken, accessTokenExtra, ghUser) {
+      return usersByGhId[ghUser.id] || (usersByGhId[ghUser.id] = addUser('github', ghUser));
+  })
+  .redirectPath('/');
 
 // development only
 if ('development' == app.get('env')) {

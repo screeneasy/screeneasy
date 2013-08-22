@@ -8,10 +8,7 @@
   },
   "dependencies": {
     "express": "*",
-    "node-oauth": "*",
-    "passport" : "*",
-    "passport-github" : "*",
-    "passport-google" : "*",
+    "everyauth" : "*",
     "ejs": "*"
   }
 }

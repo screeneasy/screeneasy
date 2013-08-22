@@ -7,5 +7,9 @@
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+    <% if (everyauth.github) { %>
+        <h3> GitHub User Data</h3>
+        <p> <% JSON.stringify(everyauth.github.user) %></p>
+    <% } %>
   </body>
 </html>
