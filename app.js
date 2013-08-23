@@ -1,4 +1,3 @@
-
 /**
  * Module dependencies.
  */
@@ -8,10 +7,9 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
-var everyauth = require('everyauth');
-var usersByGhId = {};
-var usersById = {};
-var nextUserId = 0;
+var passport = require('passport');
+var TwitterStrategy = require('passport-twitter').Strategy;
+var GitHubStrategy = require('passport-github').Strategy;
 
 var app = express();
 
@@ -25,39 +23,64 @@ app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.cookieParser('your secret here'));
 app.use(express.session());
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
-
-function addUser (source, sourceUser) {
-  var user;
-  if (arguments.length === 1) { // password-based
-    user = sourceUser = source;
-    user.id = ++nextUserId;
-    return usersById[nextUserId] = user;
-  } else { // non-password-based
-    user = usersById[++nextUserId] = {id: nextUserId};
-    user[source] = sourceUser;
-  }
-  return user;
-}
-
-everyauth.github
-  .appId("")
-  .appSecret("")
-  .entryPath('/auth/github')
-  .callbackPath('/auth/github/callback')
-  .findOrCreateUser( function (sess, accessToken, accessTokenExtra, ghUser) {
-      return usersByGhId[ghUser.id] || (usersByGhId[ghUser.id] = addUser('github', ghUser));
-  })
-  .redirectPath('/');
 
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+var users = [];
+
+passport.use(new TwitterStrategy({
+        consumerKey: '',
+        consumerSecret: '',
+        callbackURL: 'http://jay.sea1.office.priv:3000/auth/twitter/callback'
+    },
+    function(token, tokenSecret, profile, done) {
+        var user = users[profile.id] ||
+                   (users[profile.id] = { id: profile.id, name: profile.username});
+        done(null, user);
+    }
+));
+
+passport.use(new GitHubStrategy({
+    clientID: '',
+    clientSecret: '',
+    callbackURL: 'http://127.0.0.1:3000/auth/github/callback'
+  },
+  function(accessToken, refreshToken, profile, done) {
+    user.findOrCreate({ githubId: profile.id }, function (err, user) {
+      return done(err, user);
+    });
+  }
+));
+
+passport.serializeUser(function(user, done) {
+    done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+    var user = users[id];
+    done(null, user);
+});
+
+
 app.get('/', routes.index);
 app.get('/users', user.list);
+
+app.get('/auth/twitter', passport.authenticate('twitter'));
+app.get('/auth/twitter/callback', passport.authenticate('twitter', {
+    successRedirect: '/', failureRedirect: '/auth/twitter'
+}));
+
+app.get('/logout', function(req, res){
+    req.logout();
+    res.redirect('/');
+});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

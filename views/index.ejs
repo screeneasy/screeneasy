@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-    <% if (everyauth.github) { %>
-        <h3> GitHub User Data</h3>
-        <p> <% JSON.stringify(everyauth.github.user) %></p>
+    <% if (user) {%>
+        <a href="/logout">Log out</a>
+        <p> Hello <%= user.name %> id:<%= user.id %></p>
+    <% } else { %>
+        <a href="/auth/twitter">
+            <img style='border: 0px' src='https://si0.twimg.com/images/dev/buttons/sign-in-with-twitter-l.png'></img>
+        </a>
     <% } %>
   </body>
 </html>

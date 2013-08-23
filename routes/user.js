@@ -4,6 +4,5 @@
  */
 
 exports.list = function(req, res){
-  console.log(req);
-  res.render('users', { res: res });
+  res.send("respond with a resource");
 };
