@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <% if (user) {%>
+        <a href="/logout">Log out</a>
+        <p> Hello <%= user.name %> id:<%= user.id %></p>
+    <% } else { %>
+        <a href="/auth/twitter">
+            <img style='border: 0px' src='https://si0.twimg.com/images/dev/buttons/sign-in-with-twitter-l.png'></img>
+        </a>
+    <% } %>
+  </body>
+</html>
