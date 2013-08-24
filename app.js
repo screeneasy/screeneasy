@@ -1,10 +1,8 @@
 /**
  * Module dependencies.
  */
-
 var express = require('express');
 var routes = require('./routes');
-var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 var passport = require('passport');
@@ -21,7 +19,7 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
-app.use(express.cookieParser('your secret here'));
+app.use(express.cookieParser('secret'));
 app.use(express.session());
 app.use(passport.initialize());
 app.use(passport.session());
@@ -38,7 +36,7 @@ var users = [];
 passport.use(new TwitterStrategy({
         consumerKey: '',
         consumerSecret: '',
-        callbackURL: 'http://jay.sea1.office.priv:3000/auth/twitter/callback'
+        callbackURL: 'http://127.0.0.1:3000/auth/twitter/callback'
     },
     function(token, tokenSecret, profile, done) {
         var user = users[profile.id] ||
@@ -53,9 +51,10 @@ passport.use(new GitHubStrategy({
     callbackURL: 'http://127.0.0.1:3000/auth/github/callback'
   },
   function(accessToken, refreshToken, profile, done) {
-    user.findOrCreate({ githubId: profile.id }, function (err, user) {
-      return done(err, user);
-    });
+      // asynchronous verification
+      process.nextTick(function () {
+        return done(null, profile);
+      });
   }
 ));
 
@@ -64,22 +63,42 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-    var user = users[id];
-    done(null, user);
+    // Twitter needs this
+    //var user = users[id];
+    //done(null, user);
+
+    // @FIXME Temp hack to keep github working
+    done(null, id);
 });
 
 
 app.get('/', routes.index);
-app.get('/users', user.list);
 
 app.get('/auth/twitter', passport.authenticate('twitter'));
 app.get('/auth/twitter/callback', passport.authenticate('twitter', {
     successRedirect: '/', failureRedirect: '/auth/twitter'
 }));
 
+app.get('/login', function(req, res){
+  res.render('login', { user: req.user });
+});
+
+app.get('/auth/github',
+  passport.authenticate('github'),
+  function(req, res){
+    // The request will be redirected to GitHub for authentication, so this
+    // function will not be called.
+  });
+
+app.get('/auth/github/callback',
+  passport.authenticate('github', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.render('github_account', {user : req.user });
+  });
+
 app.get('/logout', function(req, res){
-    req.logout();
-    res.redirect('/');
+  req.logout();
+  res.redirect('/');
 });
 
 http.createServer(app).listen(app.get('port'), function(){
