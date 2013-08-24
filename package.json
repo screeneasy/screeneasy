@@ -7,12 +7,13 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "express": "*",
+    "express" : "*",
     "passport" : "*",
     "passport-twitter" : "*",
     "passport-github" : "*",
     "passport-local" : "*",
     "nconf" : "*",
+    "orm" : "*",
     "ejs": "*"
   }
 }
