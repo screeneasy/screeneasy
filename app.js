@@ -8,8 +8,8 @@ var path = require('path');
 var passport = require('passport');
 var TwitterStrategy = require('passport-twitter').Strategy;
 var GitHubStrategy = require('passport-github').Strategy;
-
 var app = express();
+var nconf = require('nconf');
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -33,9 +33,12 @@ if ('development' == app.get('env')) {
 
 var users = [];
 
+//Load up config
+nconf.file({ file: '/tmp/config.json' });
+
 passport.use(new TwitterStrategy({
-        consumerKey: '',
-        consumerSecret: '',
+        consumerKey: nconf.get('twitter:key'),
+        consumerSecret: nconf.get('twitter:secret'),
         callbackURL: 'http://127.0.0.1:3000/auth/twitter/callback'
     },
     function(token, tokenSecret, profile, done) {
@@ -46,8 +49,8 @@ passport.use(new TwitterStrategy({
 ));
 
 passport.use(new GitHubStrategy({
-    clientID: '',
-    clientSecret: '',
+    clientID: nconf.get('github:key'),
+    clientSecret: nconf.get('github:secret'),
     callbackURL: 'http://127.0.0.1:3000/auth/github/callback'
   },
   function(accessToken, refreshToken, profile, done) {
@@ -95,6 +98,7 @@ app.get('/logout', function(req, res){
   req.logout();
   res.redirect('/');
 });
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
