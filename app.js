@@ -59,16 +59,11 @@ passport.use(new GitHubStrategy({
 ));
 
 passport.serializeUser(function(user, done) {
-    done(null, user.id);
+    done(null, user);
 });
 
-passport.deserializeUser(function(id, done) {
-    // Twitter needs this
-    //var user = users[id];
-    //done(null, user);
-
-    // @FIXME Temp hack to keep github working
-    done(null, id);
+passport.deserializeUser(function(obj, done) {
+    done(null, obj);
 });
 
 
