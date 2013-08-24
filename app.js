@@ -8,8 +8,8 @@ var path = require('path');
 var passport = require('passport');
 var TwitterStrategy = require('passport-twitter').Strategy;
 var GitHubStrategy = require('passport-github').Strategy;
-var app = express();
 var nconf = require('nconf');
+var app = express();
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -69,36 +69,8 @@ passport.deserializeUser(function(obj, done) {
     done(null, obj);
 });
 
-
-app.get('/', routes.index);
-
-app.get('/auth/twitter', passport.authenticate('twitter'));
-app.get('/auth/twitter/callback', passport.authenticate('twitter', {
-    successRedirect: '/', failureRedirect: '/auth/twitter'
-}));
-
-app.get('/login', function(req, res){
-  res.render('login', { user: req.user });
-});
-
-app.get('/auth/github',
-  passport.authenticate('github'),
-  function(req, res){
-    // The request will be redirected to GitHub for authentication, so this
-    // function will not be called.
-  });
-
-app.get('/auth/github/callback',
-  passport.authenticate('github', { failureRedirect: '/login' }),
-  function(req, res) {
-    res.render('github_account', {user : req.user });
-  });
-
-app.get('/logout', function(req, res){
-  req.logout();
-  res.redirect('/');
-});
-
+// Kick off routes
+require('./approutes.js')(routes, app, passport);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
