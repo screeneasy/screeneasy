@@ -39,7 +39,7 @@ nconf.file({ file: '/tmp/config.json' });
 passport.use(new TwitterStrategy({
         consumerKey: nconf.get('twitter:key'),
         consumerSecret: nconf.get('twitter:secret'),
-        callbackURL: 'http://127.0.0.1:3000/auth/twitter/callback'
+        callbackURL: nconf.get('twitter:callback_url')
     },
     function(token, tokenSecret, profile, done) {
         var user = users[profile.id] ||
@@ -51,7 +51,7 @@ passport.use(new TwitterStrategy({
 passport.use(new GitHubStrategy({
     clientID: nconf.get('github:key'),
     clientSecret: nconf.get('github:secret'),
-    callbackURL: 'http://127.0.0.1:3000/auth/github/callback'
+    callbackURL: nconf.get('github:callback_url')
   },
   function(accessToken, refreshToken, profile, done) {
       // asynchronous verification
