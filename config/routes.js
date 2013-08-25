@@ -6,9 +6,19 @@ module.exports = function(routes, app, passport){
         successRedirect: '/', failureRedirect: '/auth/twitter'
     }));
 
+    //app.get('/login', function(req, res){
+      //res.render('login', { user: req.user });
+    //});
+
     app.get('/login', function(req, res){
-      res.render('login', { user: req.user });
+      res.render('login', { user: req.user, message: req.body.error });
     });
+
+    app.post('/login',
+      passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }),
+      function(req, res) {
+        res.redirect('/');
+      });
 
     app.get('/auth/github',
       passport.authenticate('github'),

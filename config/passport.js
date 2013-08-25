@@ -1,8 +1,38 @@
 var TwitterStrategy = require('passport-twitter').Strategy;
 var GitHubStrategy = require('passport-github').Strategy;
+var LocalStrategy = require('passport-local').Strategy;
 var nconf = require('nconf');
 
 var users = [];
+
+var localUsers = [
+    { id: 1, username: 'bob', password: 'secret', email: 'bob@example.com' }
+  , { id: 2, username: 'jay', password: 'jay', email: 'jay@example.com' }
+];
+
+function findById(user, fn) {
+  var idx = user.id - 1;
+  if (localUsers[idx]) {
+    fn(null, localUsers[idx]);
+  } else {
+    throw new Error('User ' + user.username + ' does\'t exist');
+  }
+}
+
+function findByUsername(username, fn) {
+  for (var i = 0, len = localUsers.length; i < len; i++) {
+    var user = localUsers[i];
+    if (user.username === username) {
+      return fn(null, user);
+    }
+  }
+  return fn(null, null);
+}
+
+var localUsers = [
+    { id: 1, username: 'bob', password: 'secret', email: 'bob@example.com' }
+  , { id: 2, username: 'joe', password: 'birthday', email: 'joe@example.com' }
+];
 
 module.exports = function(passport) {
     //Load up config
@@ -33,11 +63,36 @@ module.exports = function(passport) {
       }
     ));
 
+    passport.use(new LocalStrategy(
+      function(username, password, done) {
+        // asynchronous verification, for effect...
+        process.nextTick(function () {
+
+          // Find the user by username.  If there is no user with the given
+          // username, or the password is not correct, set the user to `false` to
+          // indicate failure and set a flash message.  Otherwise, return the
+          // authenticated `user`.
+          findByUsername(username, function(err, user) {
+            if (err) { return done(err); }
+            if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
+            if (user.password != password) { return done(null, false, { message: 'Invalid password' }); }
+            return done(null, user);
+          })
+        });
+      }
+    ));
+
     passport.serializeUser(function(user, done) {
         done(null, user);
     });
 
     passport.deserializeUser(function(obj, done) {
-        done(null, obj);
+      try {
+          findById(obj, function (err, user) {
+            done(err, user);
+          });
+      } catch(e) {
+          done(null, obj);
+      }
     });
 }
