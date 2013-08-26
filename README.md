@@ -18,3 +18,9 @@ ScreenEasy app
   }
 }
 ```
+
+# Run project
+```
+- npm install
+- ./node_modules/nodemon/nodemon.js app.js -e js,css,html
+```
