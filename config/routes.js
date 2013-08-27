@@ -37,4 +37,8 @@ module.exports = function(routes, app, passport){
       req.logout();
       res.redirect('/');
     });
+
+    app.get('/question', function(req,res){
+      res.render('question', {});
+    });
 }
