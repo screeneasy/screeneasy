@@ -51,6 +51,9 @@ require('./config/passport.js')(passport);
 // Kick off routes
 require('./config/routes.js')(routes, app, passport);
 
+// Candidate questions
+require('./config/candidate_questions.js')(app);
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
