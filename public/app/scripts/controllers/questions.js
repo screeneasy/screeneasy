@@ -2,7 +2,13 @@
 
 angular.module('publicApp')
   .controller('QuestionsCtrl', function ($scope, $http) {
-     $scope.questions = [];
+     $http.get("http://127.0.0.1:3000/v1/interview/questions").success(function(data) {
+        console.log(data);
+        $scope.questions = data;
+     }).error(function(data) {
+        $scope.questions = []
+     });
+
      $scope.addQuestion = function(){
         var question = {
            source: $scope.question.source,
@@ -18,11 +24,9 @@ angular.module('publicApp')
 
         $http.post("http://127.0.0.1:3000/v1/interview/questions", question)
         .success(function(data, status, headers, config) {
-            console.log(data);
             $scope.data = data;
         }).error(function(data, status, headers, config) {
             $scope.status = status;
         });
      }
-
   });

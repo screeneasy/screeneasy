@@ -1,9 +1,5 @@
 <input type="text" ng-model="search" class="search-query" placeholder="Search">
 <div ng-init="addingQuestion=false" class="row tech-questions">
-   <div class="span4" ng-repeat="(key,question) in questions">
-      <input id="rand{{key}}" value="question" type="checkbox" ng-model="question.checked" />
-      <questionbox key="key" question="question"></question-checkbox>
-   </div>
    <a class="span4" href="javascript://" ng-click="addingQuestion=true" ng-hide="addingQuestion">Add a Question</a>
    <div ng-show="addingQuestion" class="span4">
       <p><strong>Add Technical Question</strong></p>
@@ -18,4 +14,10 @@
       <a href="javascript://" class="btn btn-primary" ng-click="addQuestion(); ">Submit</a>
       <a href="javascript://" ng-click="addingQuestion=false">Cancel</a>
    </div>
+</div>
+
+<div class="span4" ng-repeat="(key,question) in questions">
+   <p>Source: {{question.source}}</p>
+   <p>Body: {{question.body}}</p>
+   <p>Language: {{question.defaultLanguage}}</p>
 </div>
