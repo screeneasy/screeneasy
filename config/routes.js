@@ -6,10 +6,6 @@ module.exports = function(routes, app, passport){
         successRedirect: '/', failureRedirect: '/auth/twitter'
     }));
 
-    //app.get('/login', function(req, res){
-      //res.render('login', { user: req.user });
-    //});
-
     app.get('/login', function(req, res){
       res.render('login', { user: req.user, message: req.body.error });
     });
@@ -40,5 +36,15 @@ module.exports = function(routes, app, passport){
 
     app.get('/question', function(req,res){
       res.render('question', {});
+    });
+
+    app.options('/v1/interview/questions', function(req, res) {
+      res.send(200);
+    });
+
+    app.post('/v1/interview/questions', function(req, res) {
+      console.log(req);
+      console.log(res.body);
+      res.json({'foo':'bar'});
     });
 }

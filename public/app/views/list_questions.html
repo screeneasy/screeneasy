@@ -1,19 +1,21 @@
 <input type="text" ng-model="search" class="search-query" placeholder="Search">
-<table>
-  <thead>
-  <tr>
-    <th>Project</th>
-    <th>Description</th>
-    <th><a href="#/new"><i class="icon-plus-sign"></i></a></th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr ng-repeat="project in projects | filter:search | orderBy:'name'">
-    <td><a href="{{project.site}}" target="_blank">{{project.name}}</a></td>
-    <td>{{project.description}}</td>
-    <td>
-      <a href="#/edit/{{project.$id}}"><i class="icon-pencil"></i></a>
-    </td>
-  </tr>
-  </tbody>
-</table>
+<div ng-init="addingQuestion=false" class="row tech-questions">
+   <div class="span4" ng-repeat="(key,question) in questions">
+      <input id="rand{{key}}" value="question" type="checkbox" ng-model="question.checked" />
+      <questionbox key="key" question="question"></question-checkbox>
+   </div>
+   <a class="span4" href="javascript://" ng-click="addingQuestion=true" ng-hide="addingQuestion">Add a Question</a>
+   <div ng-show="addingQuestion" class="span4">
+      <p><strong>Add Technical Question</strong></p>
+      <label>Title</label>
+      <input type="text" ng-model="question.source" />
+      <label>Question</label>
+      <textarea ng-model="question.body" /></textarea>
+      <label>Default Language</label>
+      <select ng-model="question.defaultLanguage">
+         <option ng-repeat="language in ['Python', 'Javascript', 'Ruby']" value="{{language}}">{{language}}</option>
+      </select>
+      <a href="javascript://" class="btn btn-primary" ng-click="addQuestion(); ">Submit</a>
+      <a href="javascript://" ng-click="addingQuestion=false">Cancel</a>
+   </div>
+</div>

@@ -7,7 +7,7 @@ angular.module('publicApp', [])
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
-      .when('/questions', {
+      .when('/candidate/setup', {
         templateUrl: 'views/list_questions.html',
         controller: 'QuestionsCtrl'
       })
