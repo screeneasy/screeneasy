@@ -7,6 +7,7 @@ var http = require('http');
 var path = require('path');
 var passport = require('passport');
 var app = express();
+var nconf = require('nconf');
 
 //CORS middleware
 var allowCrossDomain = function(req, res, next) {
@@ -45,14 +46,17 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+//Load up config
+nconf.file({ file: '/tmp/config.json' });
+
 // Init passport config
-require('./config/passport.js')(passport);
+require('./config/passport.js')(passport, nconf);
 
 // Kick off routes
 require('./config/routes.js')(routes, app, passport);
 
 // Candidate questions
-require('./config/candidate_questions.js')(app);
+require('./config/candidate_questions.js')(app, nconf);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

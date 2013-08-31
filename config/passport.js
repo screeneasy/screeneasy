@@ -1,7 +1,6 @@
 var TwitterStrategy = require('passport-twitter').Strategy;
 var GitHubStrategy = require('passport-github').Strategy;
 var LocalStrategy = require('passport-local').Strategy;
-var nconf = require('nconf');
 
 var users = [];
 
@@ -34,10 +33,7 @@ var localUsers = [
   , { id: 2, username: 'joe', password: 'birthday', email: 'joe@example.com' }
 ];
 
-module.exports = function(passport) {
-    //Load up config
-    nconf.file({ file: '/tmp/config.json' });
-
+module.exports = function(passport, nconf) {
     passport.use(new TwitterStrategy({
             consumerKey: nconf.get('twitter:key'),
             consumerSecret: nconf.get('twitter:secret'),

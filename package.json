@@ -7,13 +7,14 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "express" : "*",
-    "passport" : "*",
-    "passport-twitter" : "*",
-    "passport-github" : "*",
-    "passport-local" : "*",
-    "nconf" : "*",
-    "nodemon" : "*",
-    "ejs": "*"
+    "express" : "3.3.7",
+    "passport" : "0.1.17",
+    "passport-twitter" : "1.0.0",
+    "passport-github" : "0.1.5",
+    "passport-local" : "0.1.6",
+    "pg" : "2.5.0",
+    "nconf" : "0.6.7",
+    "nodemon" : "0.7.10",
+    "ejs": "0.8.4"
   }
 }

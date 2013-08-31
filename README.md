@@ -15,6 +15,9 @@ ScreenEasy app
   "github": {
     "key":"foo",
     "secret":"bar"
+  },
+  "db": {
+    "dsn":"postgres://user:pass@host:port/schema"
   }
 }
 ```

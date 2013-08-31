@@ -1,4 +1,12 @@
-module.exports = function(app) {
+var pg = require('pg').native;
+var client;
+var query;
+
+module.exports = function(app, nconf) {
+    var connectionString = process.env.DATABASE_URL || nconf.get('db:dsn');
+    client = new pg.Client(connectionString);
+    client.connect();
+
     app.options('/v1/interview/questions', function(req, res) {
       res.send(200);
     });
@@ -10,6 +18,13 @@ module.exports = function(app) {
     });
 
     app.get('/v1/interview/questions', function(req, res) {
-      res.json({'source':'google', 'body':'hello', 'defaultLanguage': 'python'});
+      query = client.query('select * from interviews_questions');
+      var rows = []
+      query.on('row', function(row) {
+          rows.push(row);
+      });
+      query.on('end', function(result) {
+          res.json(rows);
+      });
     });
 }
