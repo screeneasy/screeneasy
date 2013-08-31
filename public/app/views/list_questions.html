@@ -16,8 +16,10 @@
    </div>
 </div>
 
-<div class="span4" ng-repeat="(key,question) in questions">
-   <p>Source: {{question.source}}</p>
-   <p>Body: {{question.body}}</p>
-   <p>Language: {{question.defaultLanguage}}</p>
+<div class="span4" ng-repeat="question in questions">
+   <p>id: {{question.id}}</p>
+   <p>title: {{question.title}}</p>
+   <p>body: {{question.body}}</p>
+   <p>source: {{question.source}}</p>
+   <p>created: {{question.created}}</p>
 </div>
