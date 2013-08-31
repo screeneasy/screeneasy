@@ -29,6 +29,8 @@ ScreenEasy app
 ```
 
 # Deploy
+```
 - git push heroku master
 - heroku addons:add shared-database
 - heroku run node schema.js
+```
