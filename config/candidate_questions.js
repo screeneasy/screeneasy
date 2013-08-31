@@ -12,13 +12,23 @@ module.exports = function(app, nconf) {
     });
 
     app.post('/v1/interview/questions', function(req, res) {
-      console.log(req);
-      console.log(res.body);
-      res.json({'foo':'bar'});
+      var now = new Date().toUTCString();
+      var title = req.body.title;
+      var source = req.body.source;
+      var body = req.body.body;
+
+      client.query('INSERT INTO interview_questions (title, body, source, created) VALUES ($1, $2, $3, $4)', [title, body, source, now], function(err, result) {
+          if(err) {
+            res.json(err);
+          }
+
+          var has_inserted = result.rowCount > 0 ? true : false;
+          res.json(has_inserted);
+      });
     });
 
     app.get('/v1/interview/questions', function(req, res) {
-      query = client.query('select * from interviews_questions');
+      query = client.query('SELECT * FROM interview_questions');
       var rows = []
       query.on('row', function(row) {
           rows.push(row);

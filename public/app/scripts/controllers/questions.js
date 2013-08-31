@@ -10,12 +10,12 @@ angular.module('publicApp')
      });
 
      $scope.addQuestion = function(){
+        console.log('hello');
         var question = {
+           title: $scope.question.title,
            source: $scope.question.source,
            body: $scope.question.body,
-           defaultLanguage: $scope.question.defaultLanguage
         };
-        console.log($scope.question);
 
         $scope.question.defaultLanguage = "";
         $scope.question.body = "";
