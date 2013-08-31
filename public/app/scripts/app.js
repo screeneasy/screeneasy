@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('publicApp', [])
-  .config(function ($routeProvider) {
+angular.module('publicApp', ['btford.socket-io'])
+  .config(function ($routeProvider, socketProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -11,7 +11,13 @@ angular.module('publicApp', [])
         templateUrl: 'views/list_questions.html',
         controller: 'QuestionsCtrl'
       })
+      .when('/interview', {
+        templateUrl: 'views/interview.html',
+        controller: 'InterviewCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
+    var interviewSocket = io.connect('127.0.0.1:3000/interview');
+    socketProvider.ioSocket(interviewSocket);
   });
