@@ -27,3 +27,8 @@ ScreenEasy app
 - npm install
 - ./node_modules/nodemon/nodemon.js app.js -e js,css,html
 ```
+
+# Deploy
+- git push heroku master
+- heroku addons:add shared-database
+- heroku run node schema.js
