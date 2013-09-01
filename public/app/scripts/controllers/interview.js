@@ -2,7 +2,6 @@
 
 angular.module('publicApp')
   .controller('InterviewCtrl', ['socket', function ($scope, socket) {
-    console.log(socket);
     $scope.modes = ['Scheme', 'XML', 'Javascript', 'Python'];
     $scope.mode = $scope.modes[0];
 

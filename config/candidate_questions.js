@@ -22,8 +22,7 @@ module.exports = function(app, nconf) {
             res.json(err);
           }
 
-          var has_inserted = result.rowCount > 0 ? true : false;
-          res.json(has_inserted);
+          res.json(req.body);
       });
     });
 
