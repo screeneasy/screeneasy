@@ -52,12 +52,15 @@ nconf.file({ file: '/tmp/config.json' });
 // Init passport config
 require('./config/passport.js')(passport, nconf);
 
+// instantiate socket-io
 // Kick off routes
-require('./config/routes.js')(routes, app, passport);
+var server = http.createServer(app);
+var io = require('socket.io').listen(server);
+require('./config/routes.js')(routes, app, passport, io);
 
 // Candidate questions
 require('./config/candidate_questions.js')(app, nconf);
 
-http.createServer(app).listen(app.get('port'), function(){
+server.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));
 });

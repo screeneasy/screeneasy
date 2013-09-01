@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('publicApp', ['btford.socket-io'])
+angular.module('publicApp', ['btford.socket-io', 'ui.ace'])
   .config(function ($routeProvider, socketProvider) {
     $routeProvider
       .when('/', {
@@ -18,6 +18,7 @@ angular.module('publicApp', ['btford.socket-io'])
       .otherwise({
         redirectTo: '/'
       });
-    var interviewSocket = io.connect('127.0.0.1:3000/interview');
+
+    var interviewSocket = io.connect(window.location.origin + ':3000/interview');
     socketProvider.ioSocket(interviewSocket);
   });

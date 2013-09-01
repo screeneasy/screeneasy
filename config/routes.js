@@ -1,4 +1,4 @@
-module.exports = function(routes, app, passport){
+module.exports = function(routes, app, passport, io) {
     app.get('/', routes.index);
 
     app.get('/auth/twitter', passport.authenticate('twitter'));
@@ -6,7 +6,7 @@ module.exports = function(routes, app, passport){
         successRedirect: '/', failureRedirect: '/auth/twitter'
     }));
 
-    app.get('/login', function(req, res){
+    app.get('/login', function(req, res) {
       res.render('login', { user: req.user, message: req.body.error });
     });
 
@@ -18,7 +18,7 @@ module.exports = function(routes, app, passport){
 
     app.get('/auth/github',
       passport.authenticate('github'),
-      function(req, res){
+      function(req, res) {
         // The request will be redirected to GitHub for authentication, so this
         // function will not be called.
       });
@@ -29,8 +29,14 @@ module.exports = function(routes, app, passport){
         res.render('github_account', {user: req.user });
       });
 
-    app.get('/logout', function(req, res){
+    app.get('/logout', function(req, res) {
       req.logout();
       res.redirect('/');
+    });
+
+    io.sockets.on('connection', function(socket) {
+      socket.on('text-changed', function(data) {
+          socket.broadcast.emit('update-text', data);
+      });
     });
 }
