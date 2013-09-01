@@ -1,14 +1,15 @@
 'use strict';
 
 angular.module('publicApp')
-  .controller('QuestionsCtrl', function ($scope, $http) {
-     $http.get("http://127.0.0.1:3000/v1/interview/questions").success(function(data) {
-        console.log(data);
-        $scope.questions = data;
-     }).error(function(data) {
-        $scope.questions = []
+  .controller('QuestionsCtrl', function ($scope, interviewQuestion) {
+     var interview_question = new interviewQuestion();
+     var interview_promise = interviewQuestion.get(1);
+
+     interview_promise.then(function(questions) {
+        $scope.questions = questions;
      });
 
+     // @TODO replace with interviewQuestion::create()
      $scope.addQuestion = function(){
         console.log('hello');
         var question = {
