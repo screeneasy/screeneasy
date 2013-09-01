@@ -13,11 +13,16 @@
    </div>
 </div>
 
-<input type="text" ng-model="search" class="search-query" placeholder="Search">
-<div class="span4" ng-repeat="question in questions">
-   <p>id: {{question.id}}</p>
-   <p>title: {{question.title}}</p>
-   <p>body: {{question.body}}</p>
-   <p>source: {{question.source}}</p>
-   <p>created: {{question.created}}</p>
+<div class="bar">
+  <input type="text" ng-model="searchQuestions" placeholder="Enter your search terms" />
 </div>
+
+<ul>
+  <li ng-repeat="question in questions | interviewQuestions:searchQuestions">
+      <p>id: {{question.id}}</p>
+      <p>title: {{question.title}}</p>
+      <p>body: {{question.body}}</p>
+      <p>source: {{question.source}}</p>
+      <p>created: {{question.created}}</p>
+  </li>
+</ul>

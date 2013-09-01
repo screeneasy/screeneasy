@@ -1,39 +1,23 @@
 'use strict';
 
 angular.module('publicApp')
-  .controller('InterviewCtrl', function ($scope) {
-       var editors = {};
-       var locks = {};
+  .controller('InterviewCtrl', ['socket', function ($scope, socket) {
+    console.log(socket);
+    $scope.modes = ['Scheme', 'XML', 'Javascript', 'Python'];
+    $scope.mode = $scope.modes[0];
 
-       $scope.aceOption = {
-           onLoad: function (_ace) {
-               $scope.modeChanged = function () {
-                   _ace.getSession().setMode("ace/mode/javascript");
-               };
-           }
-       }
+    // The ui-ace option
+    $scope.aceOption = {
+      mode: $scope.mode.toLowerCase(),
+      onLoad: function (_ace) {
+        $scope.modeChanged = function () {
+          _ace.getSession().setMode("ace/mode/" + $scope.mode.toLowerCase());
+        };
 
-       $scope.aceLoaded = function(_editor){
-           console.log(_editor);
-           // Editor part
-           var _session = _editor.getSession();
-           var _renderer = _editor.renderer;
+      }
+    };
 
-           console.log(_renderer);
-
-           // Options
-           _session.setUndoManager(new ace.UndoManager());
-
-           // Events
-           _session.on("change", function(d,e,f) {
-               $scope.socket.emit('text-changed', {id: k, value:session.getValue()});
-           });
-       };
-
-       $scope.$on('socket:update-text', function (ev, data) {
-           var editor = editors[d.id];
-           editor.locked = true;
-           editor.session.setValue(d.value);
-           editor.locked = false;
-       });
-  });
+    $scope.on('socket:error', function(eve, data) {
+        socket.emit('text-changed', {id: "hello" , value:'world'});
+    });
+  }]);
