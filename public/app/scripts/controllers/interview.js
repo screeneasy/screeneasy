@@ -1,22 +1,26 @@
 'use strict';
 
 angular.module('publicApp')
-  .controller('InterviewCtrl', ['socket', function ($scope, socket) {
-    $scope.modes = ['Scheme', 'XML', 'Javascript', 'Python'];
-    $scope.mode = $scope.modes[0];
+  .controller('InterviewCtrl', ['$scope', '$routeParams', 'interviewQuestion', 'github',
+     function ($scope, $routeParams, interviewQuestion, github) {
+         $scope.questions = [{id: 1, question:"how old are you?"}]
 
-    // The ui-ace option
-    $scope.aceOption = {
-      mode: $scope.mode.toLowerCase(),
-      onLoad: function (_ace) {
-        $scope.modeChanged = function () {
-          _ace.getSession().setMode("ace/mode/" + $scope.mode.toLowerCase());
-        };
+         $scope.techQuestions = [{id: 2,question: "Write a function to square a number"},{id: 3, question: "write a function to be magic!"}];
+         $scope.hash = $routeParams.hash
 
-      }
-    };
+         var userParam = 'crabasa';
 
-    $scope.on('socket:error', function(eve, data) {
-        socket.emit('text-changed', {id: "hello" , value:'world'});
-    });
+         github.get({
+           user: userParam,
+           repo: ''
+         }, function(res) {
+           $scope.summary = res.data;
+         });
+
+         $scope.candidateSummary = {
+            organizations: [{name:'CascadiaJS'},{name:'Twilio'}],
+            proficientLanguage: 'JavaScript',
+            notableProjects: [{name:'JQuery', description: 'Front-end JavaScript framework'},
+                              {name: 'CoffeeScript', description: 'Dialect of JavaScript'}],
+         };
   }]);
