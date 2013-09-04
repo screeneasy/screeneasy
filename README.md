@@ -26,6 +26,7 @@ ScreenEasy app
 ```
 - npm install
 - ./node_modules/nodemon/nodemon.js app.js -e js,css,html
+- You may also need to install postgresql-server-dev package (e.g: sudo apt-get install postgresql-server-dev-9.1)
 ```
 
 # Deploy
