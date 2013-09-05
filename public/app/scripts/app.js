@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('publicApp', ['fireace', 'ngResource', 'timer'])
+angular.module('publicApp', ['fireace', 'ngResource'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
