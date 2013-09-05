@@ -58,6 +58,9 @@ var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 require('./config/routes.js')(routes, app, passport, io);
 
+// Candidate profile
+require('./config/candidate_profile.js')(app, nconf);
+
 // Candidate questions
 require('./config/candidate_questions.js')(app, nconf);
 
