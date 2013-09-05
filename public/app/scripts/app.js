@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('publicApp', ['fireace', 'ngResource'])
+angular.module('publicApp', ['fireace', 'ngResource','ui.bootstrap'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
@@ -10,6 +10,10 @@ angular.module('publicApp', ['fireace', 'ngResource'])
       .when('/candidate/setup', {
         templateUrl: 'views/list_questions.html',
         controller: 'QuestionsCtrl'
+      })
+      .when('/schedule', {
+         templateUrl: 'views/schedule.html',
+         controller: 'ScheduleCtrl'
       })
       .when('/interview', {
         templateUrl: 'views/interview.html',
