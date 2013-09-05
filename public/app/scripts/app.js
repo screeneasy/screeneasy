@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('publicApp', ['fireace', 'ngResource'])
+angular.module('publicApp', ['fireace', 'ngResource', 'timer'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
@@ -11,7 +11,11 @@ angular.module('publicApp', ['fireace', 'ngResource'])
         templateUrl: 'views/list_questions.html',
         controller: 'QuestionsCtrl'
       })
-      .when('/interview', {
+      .when('/postmortem/:hash', {
+         templateUrl: 'views/postmortem.html', 
+         controller: 'PostmortemCtrl'
+      })
+      .when('/interview/:hash', {
         templateUrl: 'views/interview.html',
         controller: 'InterviewCtrl'
       })
