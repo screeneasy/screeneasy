@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('publicApp', ['fireace', 'ngResource'])
+angular.module('publicApp', ['fireace', 'ngResource', 'simplewebrtc'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
