@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('publicApp')
-  .controller('ScheduleCtrl', function ($scope) {
+  .controller('ScheduleCtrl', function ($scope, $http) {
      $scope.scheduleInterview = function() {
         // generate hash for the interview        
         var hash = "1234"
@@ -9,8 +9,10 @@ angular.module('publicApp')
            interviewer: $scope.interviewer,
            candidate: $scope.candidate,
            time: $scope.interviewTime,
-           date: $scope.interviewDate
+           date: Date.now()
         };
+
+        $http.post('/interview/create', interview);
 
         // save the interview 
 
