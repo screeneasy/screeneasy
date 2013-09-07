@@ -61,6 +61,8 @@ require('./config/routes.js')(routes, app, passport, io);
 // Candidate questions
 require('./config/candidate_questions.js')(app, nconf);
 
+// schedule routes
+require('./routes/schedule.js')(app, nconf);
 server.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));
 });
