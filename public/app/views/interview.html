@@ -1,21 +1,28 @@
-<div id="candidate-summary">
-   <img ng-src="{{summary.avatar_url}}" />
-   <h4>{{summary.name}}</h4>
-   <p>Organizations:</p>
-   <p><span ng-repeat="org in candidateSummary.organizations">{{org.name}} </span></p>
-   <p>Proficient Language:</p><span>{{candidateSummary.proficientLanguage}}</span>
-   <p>Notable Projects</p>
-   <p ng-repeat="project in candidateSummary.notableProjects">{{project.name}} - {{project.description}}</p>
+<div id="video-share">
+    <screenshare room="{{summary.avatar_url}}"></screenshare>
 </div>
+<div id="interview">
+    <div id="candidate-summary">
+       <img ng-src="{{summary.avatar_url}}" />
+       <h4>{{summary.name}}</h4>
+       <p>Organizations:</p>
+       <p><span ng-repeat="org in candidateSummary.organizations">{{org.name}} </span></p>
+       <p>Proficient Language:</p><span>{{candidateSummary.proficientLanguage}}</span>
+       <p>Notable Projects</p>
+       <p ng-repeat="project in candidateSummary.notableProjects">{{project.name}} - {{project.description}}</p>
+    </div>
 
-<div ng-repeat="question in questions">
-   <h3>{{question.question}}</h3>
-   <textarea></textarea>
-</div>
+    <div ng-repeat="question in questions">
+       <h3>{{question.question}}</h3>
+       <textarea></textarea>
+    </div>
 
-<div ng-repeat="question in techQuestions">
-   <h3>{{question.question}}</h3>
-   <fireace  firebaseurl="https://screeneasy.firebaseIO.com/interview/questions/{{hash}}/{{question.id}}"></fireace>
+    <div ng-repeat="question in techQuestions">
+       <h3>{{question.question}}</h3>
+       <fireace  firebaseurl="https://screeneasy.firebaseIO.com/interview/questions/{{hash}}/{{question.id}}"></fireace>
+    </div>
+    <br/>
+    <input type="submit" class="btn" value="End Interview" />
 </div>
 <br/>
 <input type="submit" ng-click="endInterview()" class="btn" value="End Interview" />
