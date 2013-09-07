@@ -11,7 +11,11 @@ angular.module('publicApp', ['fireace', 'ngResource', 'simplewebrtc'])
         templateUrl: 'views/list_questions.html',
         controller: 'QuestionsCtrl'
       })
-      .when('/interview', {
+      .when('/postmortem/:hash', {
+         templateUrl: 'views/postmortem.html', 
+         controller: 'PostmortemCtrl'
+      })
+      .when('/interview/:hash', {
         templateUrl: 'views/interview.html',
         controller: 'InterviewCtrl'
       })
