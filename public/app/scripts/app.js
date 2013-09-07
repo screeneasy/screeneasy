@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('publicApp', ['fireace', 'ngResource', 'simplewebrtc'])
+angular.module('publicApp', ['fireace', 'ngResource','ui.bootstrap','simplewebrtc'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
@@ -11,8 +11,12 @@ angular.module('publicApp', ['fireace', 'ngResource', 'simplewebrtc'])
         templateUrl: 'views/list_questions.html',
         controller: 'QuestionsCtrl'
       })
+      .when('/schedule', {
+         templateUrl: 'views/schedule.html',
+         controller: 'ScheduleCtrl'
+      })
       .when('/postmortem/:hash', {
-         templateUrl: 'views/postmortem.html', 
+         templateUrl: 'views/postmortem.html',
          controller: 'PostmortemCtrl'
       })
       .when('/interview/:hash', {
