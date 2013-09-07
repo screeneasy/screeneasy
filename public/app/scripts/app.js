@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('publicApp', ['fireace', 'ngResource','ui.bootstrap'])
+angular.module('publicApp', ['fireace', 'ngResource','ui.bootstrap','simplewebrtc'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
@@ -15,7 +15,11 @@ angular.module('publicApp', ['fireace', 'ngResource','ui.bootstrap'])
          templateUrl: 'views/schedule.html',
          controller: 'ScheduleCtrl'
       })
-      .when('/interview', {
+      .when('/postmortem/:hash', {
+         templateUrl: 'views/postmortem.html',
+         controller: 'PostmortemCtrl'
+      })
+      .when('/interview/:hash', {
         templateUrl: 'views/interview.html',
         controller: 'InterviewCtrl'
       })
