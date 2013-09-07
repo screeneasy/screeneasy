@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('publicApp')
-  .controller('InterviewCtrl', ['$scope', '$routeParams', 'interviewQuestion', 'github',
-     function ($scope, $routeParams, interviewQuestion, github) {
+  .controller('InterviewCtrl', ['$scope', '$routeParams', 'interviewQuestion', 'github', '$location',
+     function ($scope, $routeParams, interviewQuestion, github, $location) {
          $scope.questions = [{id: 1, question:"how old are you?"}]
 
          $scope.techQuestions = [{id: 2,question: "Write a function to square a number"},{id: 3, question: "write a function to be magic!"}];
@@ -22,5 +22,9 @@ angular.module('publicApp')
             proficientLanguage: 'JavaScript',
             notableProjects: [{name:'JQuery', description: 'Front-end JavaScript framework'},
                               {name: 'CoffeeScript', description: 'Dialect of JavaScript'}],
+         };
+
+         $scope.endInterview = function() {
+            $location.path('/postmortem/' + $scope.hash);
          };
   }]);
