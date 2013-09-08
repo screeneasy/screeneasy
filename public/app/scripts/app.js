@@ -8,7 +8,7 @@ angular.module('publicApp', ['fireace', 'ngResource','ui.bootstrap','simplewebrt
         controller: 'MainCtrl'
       })
       .when('/candidate/setup', {
-        templateUrl: 'views/list_questions.html',
+        templateUrl: 'views/questions.html',
         controller: 'QuestionsCtrl'
       })
       .when('/schedule', {
