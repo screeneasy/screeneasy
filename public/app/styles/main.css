@@ -25,3 +25,11 @@ body {
 .ace_editor {
    height: 200px;
 }
+
+.hero {
+   text-align: center;
+}
+
+.hero .sub_headline {
+   margin:12px 0 24px;
+}
