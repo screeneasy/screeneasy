@@ -1,38 +1,51 @@
 <div ng-include="'views/header.html'"></div>
 
-<div class=".col-md-6">
-    <div class="candidate">
-        <h3>Candidate information</h3>
-        <label for="candidate-name">Name</label>
-        <input type="text" id="candidate-name" ng-model="candidate.name" />
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="candidate">
+                <h4 class="sub_headline text-muted">Candidate Information</h4>
+                <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <label for="candidate.name" class="col-lg-2 control-label">Title</label>
+                    <div class="col-lg-6">
+                      <input type="text" class="form-control" id="candidate.name" placeholder="John Smith" ng-model="candidate.name">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="candidate.email" class="col-lg-2 control-label">Email</label>
+                    <div class="col-lg-6">
+                      <input type="text" class="form-control" id="candidate.email" placeholder="john.smith@gmail.com" ng-model="candidate.email">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="candidate.phone" class="col-lg-2 control-label">Phone</label>
+                    <div class="col-lg-6">
+                      <input type="text" class="form-control" id="candidate.phone" placeholder="(206) 123-4567" ng-model="candidate.phone">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-lg-offset-4 col-lg-6">
+                      <button type="submit" class="btn btn-default" ng-click="inviteCandidate();">Invite</button>
+                      <button type="reset" class="btn btn-link">Cancel</a>
+                    </div>
+                  </div>
+                </form>
+            </div>
 
-        <label for="candidate-email">Email</label>
-        <input type="text" id="candidate-email" ng-model="candidate.email" />
+            <h3>Invite the interviewer</h3>
+            <div ng-include="'views/schedule/invite_interviewer_form.html'"></div>
+            <input type="button" value="Invite more interviewer"></input>
+        </div>
 
-        <label for="candidate-phone">Phone</label>
-        <input type="text" id="candidate-phone" ng-model="candidate.phone" />
+        <div class="col-md-6">
+            <h3>Pick a date and time</h3>
+            <datepicker ng-model="interviewDate" show-weeks="false"></datepicker>
+            <timepicker ng-model="interviewTime" hour-step="1" minute-step="15"></timepicker>
+
+        </div>
+        <p>
+           <input type="submit" value="Schedule" class="btn btn-info" ng-click="scheduleInterview()" />
+        </p>
     </div>
-
-    <h3>Invite the interviewer</h3>
-    <div class="participating_interviewers">
-        <label for="interviewer-name">Name</label>
-        <input type="text" id="interviewer-name" ng-model="interviewer.name" />
-
-        <label for="interviewer-email">Email</label>
-        <input type="text" id="interviewer-email" ng-model="interviewer.email" />
-
-        <label for="interviewer-phone">Phone</label>
-        <input type="text" id="interviewer-phone" ng-model="interviewer.phone" />
-    </div>
-    <input type="button" value="Invite more interviewer"></input>
-</div>
-
-<div class=".col-md-6">
-    <h3>Pick a date and time</h3>
-    <datepicker ng-model="interviewDate" show-weeks="false"></datepicker>
-    <timepicker ng-model="interviewTime" hour-step="1" minute-step="15"></timepicker>
-
-    <p>
-       <input type="submit" value="Schedule" class="btn" ng-click="scheduleInterview()" />
-    </p>
 </div>
