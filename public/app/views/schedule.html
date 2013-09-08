@@ -1,26 +1,36 @@
-<h3>Pick a date and time</h3>
-<datepicker ng-model="interviewDate" show-weeks="false"></datepicker>
-<timepicker ng-model="interviewTime" hour-step="1" minute-step="15"></timepicker>
+<div class=".col-md-6">
+    <div class="candidate">
+        <h3>Candidate information</h3>
+        <label for="candidate-name">Name</label>
+        <input type="text" id="candidate-name" ng-model="candidate.name" />
 
-<h3>Pick the interviewer</h3>
-<label for="interviewer-name">Name</label>
-<input type="text" id="interviewer-name" ng-model="interviewer.name" />
+        <label for="candidate-email">Email</label>
+        <input type="text" id="candidate-email" ng-model="candidate.email" />
 
-<label for="interviewer-email">Email</label>
-<input type="text" id="interviewer-email" ng-model="interviewer.email" />
+        <label for="candidate-phone">Phone</label>
+        <input type="text" id="candidate-phone" ng-model="candidate.phone" />
+    </div>
 
-<label for="interviewer-phone">Phone</label>
-<input type="text" id="interviewer-phone" ng-model="interviewer.phone" />
+    <h3>Invite the interviewer</h3>
+    <div class="participating_interviewers">
+        <label for="interviewer-name">Name</label>
+        <input type="text" id="interviewer-name" ng-model="interviewer.name" />
 
-<h3>Enter Candidate information</h3>
-<label for="candidate-name">Name</label>
-<input type="text" id="candidate-name" ng-model="candidate.name" />
+        <label for="interviewer-email">Email</label>
+        <input type="text" id="interviewer-email" ng-model="interviewer.email" />
 
-<label for="candidate-email">Phone</label>
-<input type="text" id="candidate-email" ng-model="candidate.email" />
+        <label for="interviewer-phone">Phone</label>
+        <input type="text" id="interviewer-phone" ng-model="interviewer.phone" />
+    </div>
+    <input type="button" value="Invite more interviewer"></input>
+</div>
 
-<label for="candidate-phone">Phone</label>
-<input type="text" id="candidate-phone" ng-model="candidate.phone" />
-<p>
-   <input type="submit" value="Schedule" class="btn" ng-click="scheduleInterview()" />
-</p>
+<div class=".col-md-6">
+    <h3>Pick a date and time</h3>
+    <datepicker ng-model="interviewDate" show-weeks="false"></datepicker>
+    <timepicker ng-model="interviewTime" hour-step="1" minute-step="15"></timepicker>
+
+    <p>
+       <input type="submit" value="Schedule" class="btn" ng-click="scheduleInterview()" />
+    </p>
+</div>
