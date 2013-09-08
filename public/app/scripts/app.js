@@ -7,6 +7,10 @@ angular.module('publicApp', ['fireace', 'ngResource','ui.bootstrap','simplewebrt
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
+      .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'
+      })
       .when('/candidate/setup', {
         templateUrl: 'views/questions.html',
         controller: 'QuestionsCtrl'
