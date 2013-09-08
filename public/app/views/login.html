@@ -1,30 +1,33 @@
 <div ng-include="'views/header.html'"></div>
 
-<div class="span6">
-    <ul class="inline clearfix">
-        <li class="big"><i class="icon-github"></i>GitHub</li>
-        <li class="big"><i class="icon-user"></i>Persona</li>
-        <li class="big"><i class="icon-twitter"></i>Twitter</li>
-        <li class="big"><i class="icon-facebook"></i>Facebook</li>
-    </ul>
-</div>
-
-<div class="span6">
-    <div id="sign_in">
-        <h3>Sign In</h3>
-        <label for="username">Username/Email</label>
-        <input type="text" id="username" ng-model="user.name" />
-
-        <label for="password">Password</label>
-        <input type="text" id="password" ng-model="user.password" />
+<div class="container col-sm-8 col-sm-offset-2">
+    <div class="row">
+        <div class="col-md-6">
+            <ul class="list-unstyled">
+                <li class="col-md-4"><i class="icon-github"></i> GitHub</li>
+                <li class="col-md-4"><i class="icon-user"></i> Persona</li>
+                <li class="col-md-4"><i class="icon-twitter"></i> Twitter</li>
+            </ul>
+        </div>
     </div>
 
-    <div id="sign_up">
-        <h3>Create a new account</h3>
-        <label for="newuser-name">Email</label>
-        <input type="text" id="newuser-name" />
+    <div class="row">
+        <div id="sign_in col-md-6">
+            <h3>Sign In</h3>
+            <label for="username">Username/Email</label>
+            <input type="text" id="username" ng-model="user.name" />
 
-        <label for="newuser-password">Password</label>
-        <input type="text" id="newuser-password" />
+            <label for="password">Password</label>
+            <input type="text" id="password" ng-model="user.password" />
+        </div>
+
+        <div id="sign_up col-md-6">
+            <h3>Create a new account</h3>
+            <label for="newuser-name">Email</label>
+            <input type="text" id="newuser-name" />
+
+            <label for="newuser-password">Password</label>
+            <input type="text" id="newuser-password" />
+        </div>
     </div>
 </div>
