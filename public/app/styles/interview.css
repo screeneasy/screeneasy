@@ -1,6 +1,11 @@
 #video-share {
     position: absolute;
     top: 0px;
-    right: 500px;
-    width: 150px;
+    right: 310px;
+    width: 90px;
+}
+
+video {
+    width: 250px;
+    height: 250px;
 }
