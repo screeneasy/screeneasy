@@ -1,31 +1,31 @@
-var mongoose = require('mongoose');
+var Sequelize = require("sequelize")
 
 module.exports = function(app, nconf) {
-   var connectionString = nconf.get('db:mongo');
-   app.post('/interview/create', function(req,res) {
-      mongoose.connect(connectionString);
-      var Interview = mongoose.model('interview', 
-               { 
-                 interviewer: {
-                  name: String,
-                  email: String,
-                  phone: String 
-                 },
-                 candidate: {
-                  name: String,
-                  email: String, 
-                  phone: String 
-                 },
-                 interviewDate: Date
-               });
+   var connectionString = nconf.get('db:dsn');
+   var sequelize = new Sequelize(connectionString, {
+       // Look to the next section for possible options
+   })
 
-      var interview = new Interview(req.body);
-      interview.save(function (err) {
-           if (err) // ...
-                console.log('fail');
-           res.send({status:'success'});
-           res.end();
+   app.post('/interview/create', function(req,res) {
+      var Interview = sequelize.define('interview', {
+        name: Sequelize.STRING,
+        email: Sequelize.STRING,
+        phone: Sequelize.STRING
       });
+
+      Interview.build({
+        'name': req.body.name,
+        'email': req.body.email,
+        'phone': req.body.phone
+      })
+      .save()
+      .success(function(data) {
+        console.log(data);
+      })
+      .error(function(error) {
+        console.log(error);
+      });
+
    });
 }
 
