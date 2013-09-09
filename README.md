@@ -3,7 +3,6 @@ ScreenEasy.me
 
 ScreenEasy app
 
-
 # Config
 /tmp/config.json
 ```
@@ -20,6 +19,11 @@ ScreenEasy app
     "dsn":"postgres://user:pass@host:port/schema"
   }
 }
+```
+
+# Import Schema
+```
+- node schema.js
 ```
 
 # Run project
