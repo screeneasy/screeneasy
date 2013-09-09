@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('publicApp')
+angular.module('ScreenEasy')
   .controller('InterviewCtrl', ['$scope', '$routeParams', 'interviewQuestion', 'github', '$location',
      function ($scope, $routeParams, interviewQuestion, github, $location) {
          $scope.questions = [{id: 1, question:"how old are you?"}]

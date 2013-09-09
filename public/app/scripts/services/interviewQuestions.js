@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('publicApp')
+angular.module('ScreenEasy')
   .factory('interviewQuestion', function ($http) {
     // Build an interview questions class
     var endpoint = "http://127.0.0.1:3000/v1/interview/questions";

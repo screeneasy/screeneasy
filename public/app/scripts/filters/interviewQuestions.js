@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('publicApp')
+angular.module('ScreenEasy')
   .filter('interviewQuestions', function () {
     return function(arr, searchString) {
 

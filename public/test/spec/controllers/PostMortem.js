@@ -3,7 +3,7 @@
 describe('Controller: PostmortemCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('publicApp'));
+  beforeEach(module('ScreenEasy'));
 
   var PostmortemCtrl,
     scope;

@@ -3,7 +3,7 @@
 describe('Service: github', function () {
 
   // load the service's module
-  beforeEach(module('publicApp'));
+  beforeEach(module('ScreenEasy'));
 
   // instantiate service
   var github;
