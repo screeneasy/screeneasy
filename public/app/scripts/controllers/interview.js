@@ -5,6 +5,8 @@ angular.module('ScreenEasyApp')
      function ($scope, $routeParams, interviewQuestion, github, $location) {
          $scope.questions = [{id: 1, question:"how old are you?"}]
 
+         $scope.hash = $location.hash;
+
          $scope.techQuestions = [{id: 2,question: "Write a function to square a number"},{id: 3, question: "write a function to be magic!"}];
          $scope.hash = $routeParams.hash
 
