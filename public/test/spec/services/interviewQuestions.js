@@ -3,7 +3,7 @@
 describe('Service: interviewQuestions', function () {
 
   // load the service's module
-  beforeEach(module('ScreenEasy'));
+  beforeEach(module('ScreenEasyApp'));
 
   // instantiate service
   var interviewQuestions;

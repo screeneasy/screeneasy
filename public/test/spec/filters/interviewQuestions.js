@@ -3,7 +3,7 @@
 describe('Filter: interviewQuestions', function () {
 
   // load the filter's module
-  beforeEach(module('ScreenEasy'));
+  beforeEach(module('ScreenEasyApp'));
 
   // initialize a new instance of the filter before each test
   var interviewQuestions;

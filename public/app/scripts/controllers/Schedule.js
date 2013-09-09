@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ScreenEasy')
+angular.module('ScreenEasyApp')
   .controller('ScheduleCtrl', function ($scope, $http) {
      $scope.scheduleInterview = function() {
         // generate hash for the interview

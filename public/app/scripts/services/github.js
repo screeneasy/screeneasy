@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ScreenEasy')
+angular.module('ScreenEasyApp')
   .factory('github', ['$resource', function ($resource) {
      var github = $resource(
         'https://api.github.com/:query/:user/:repo/:spec',
