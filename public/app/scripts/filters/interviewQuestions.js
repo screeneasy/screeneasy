@@ -15,9 +15,14 @@ angular.module('publicApp')
          angular.forEach(arr, function(item) {
               if(item.title.toLowerCase().indexOf(searchString) !== -1 ||
                  item.body.toLowerCase().indexOf(searchString) !== -1 ||
-                 item.source.toLowerCase().indexOf(searchString) !== -1 ||
                  item.created.toLowerCase().indexOf(searchString) !== -1 ) {
                    result.push(item);
+              }
+
+              if(item.hasOwnProperty('source') && item.source) {
+                if(item.source.toLowerCase().indexOf(searchString) !== -1) {
+                    result.push(item);
+                }
               }
          });
 
