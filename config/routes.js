@@ -39,4 +39,4 @@ module.exports = function(routes, app, passport, io) {
           socket.broadcast.emit('update-text', data);
       });
     });
-}
+};

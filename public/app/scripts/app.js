@@ -16,12 +16,12 @@ angular.module('ScreenEasyApp', ['fireace', 'ngResource','ui.bootstrap','simplew
         controller: 'QuestionsCtrl'
       })
       .when('/schedule', {
-         templateUrl: 'views/schedule.html',
-         controller: 'ScheduleCtrl'
+        templateUrl: 'views/schedule.html',
+        controller: 'ScheduleCtrl'
       })
       .when('/postmortem/:hash', {
-         templateUrl: 'views/postmortem.html',
-         controller: 'PostmortemCtrl'
+        templateUrl: 'views/postmortem.html',
+        controller: 'PostmortemCtrl'
       })
       .when('/interview/:hash', {
         templateUrl: 'views/interview.html',
