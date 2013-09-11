@@ -6,6 +6,7 @@ angular.module('ScreenEasyApp')
       templateUrl: 'views/partial/question.html',
       transclude : false,
       restrict: 'EA',
+      controller: 'QuestionsCtrl',
       scope: {
         question: "="
       }

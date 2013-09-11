@@ -1,5 +1,8 @@
-<p>id: {{question.id}}</p>
-<p>title: {{question.title}}</p>
-<p>body: {{question.body}}</p>
-<p>source: {{question.source}}</p>
-<p>created: {{question.created}}</p>
+<span>
+    <p class="icon-remove" ng-click="deleteQuestion()" ng-hide="{{is_deleted}}"></p>
+    <p>id: {{question.id}}</p>
+    <p>title: {{question.title}}</p>
+    <p>body: {{question.body}}</p>
+    <p>source: {{question.source}}</p>
+    <p>created: {{question.created}}</p>
+</span>

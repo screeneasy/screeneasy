@@ -20,7 +20,7 @@ module.exports = function(app, nconf) {
       client.query('INSERT INTO interview_questions (title, body, source, created) VALUES ($1, $2, $3, $4)', [title, body, source, now], function(err, result) {
           if(err) {
             res.json(err);
-          }
+          };
 
           res.json(req.body);
       });
@@ -39,6 +39,13 @@ module.exports = function(app, nconf) {
 
     // Delete a specific interview question
     app.delete('/v1/interview/questions/:id', function(req, res) {
+      query = client.query('DELETE FROM interview_questions WHERE id = ' + req.body.id);
+      query.on('end', function(err, result) {
+          if(err) {
+            res.json(err);
+          };
 
+          res.json(result);
+      });
     });
 };

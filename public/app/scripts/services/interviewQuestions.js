@@ -39,5 +39,10 @@ angular.module('ScreenEasyApp')
         });
     };
 
+    // DELETE: Delete an interview question
+    interview_questions.prototype.delete = function(id) {
+        return $http.delete(endpoint + "/" + id);
+    };
+
     return interview_questions;
   });
