@@ -39,13 +39,9 @@ module.exports = function(app, nconf) {
 
     // Delete a specific interview question
     app.delete('/v1/interview/questions/:id', function(req, res) {
-      query = client.query('DELETE FROM interview_questions WHERE id = ' + req.body.id);
-      query.on('end', function(err, result) {
-          if(err) {
-            res.json(err);
-          };
-
-          res.json(result);
+      query = client.query('DELETE FROM interview_questions WHERE id = ' + req.params.id);
+      query.on('end', function(result) {
+          res.json(result.rowCount === 1);
       });
     });
 };

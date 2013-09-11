@@ -1,5 +1,5 @@
-<span>
-    <p class="icon-remove" ng-click="deleteQuestion()" ng-hide="{{is_deleted}}"></p>
+<span  data-ng-hide="hidden == {{is_deleted}}" data-ng-animate="'fade'">
+    <p class="icon-remove" ng-click="deleteQuestion()"></p>
     <p>id: {{question.id}}</p>
     <p>title: {{question.title}}</p>
     <p>body: {{question.body}}</p>
