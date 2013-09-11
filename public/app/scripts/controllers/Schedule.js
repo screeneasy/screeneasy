@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ScreenEasyApp')
-  .controller('ScheduleCtrl', function ($scope, $http) {
+  .controller('ScheduleCtrl', function ($scope, $http, $q, $location, interview, email) {
      $scope.scheduleInterview = function() {
         // generate hash for the interview
         var hash = "1234"
@@ -18,7 +18,6 @@ angular.module('ScreenEasyApp')
         ])
         .then(function(responses) {
            var errors = responses.filter(function(v,k) { return v.status == "error"; });
-           console.log(errors);
            if (!errors.length) {
               $location.path('/interviews')
            }

@@ -1,4 +1,4 @@
-var Sequelize = require("sequelize")
+var mongoose = require("mongoose")
 
 module.exports = function(app, nconf) {
    var connectionString = nconf.get('db:mongo');

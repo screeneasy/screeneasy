@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('publicApp')
+angular.module('ScreenEasyApp')
   .service('email', function email($http) {
      return {
         send: function(params) {

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('publicApp')
+angular.module('ScreenEasyApp')
   .service('interview', function interview($http) {
     // AngularJS will instantiate a singleton by calling "new" on this function
     return {
