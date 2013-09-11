@@ -19,6 +19,8 @@ angular.module('ScreenEasyApp')
         question.create();
      };
 
+     $scope.is_deleted = false;
+
      $scope.deleteQuestion = function() {
         var question = new interviewQuestion();
         $scope.is_deleted = question.delete($scope.question.id);
