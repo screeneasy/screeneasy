@@ -15,6 +15,10 @@ angular.module('publicApp', ['fireace', 'ngResource','ui.bootstrap','simplewebrt
          templateUrl: 'views/schedule.html',
          controller: 'ScheduleCtrl'
       })
+      .when('/interviews', {
+         templateUrl: 'views/interviews.html',
+         controller: 'InterviewsCtrl'
+      })
       .when('/postmortem/:hash', {
          templateUrl: 'views/postmortem.html',
          controller: 'PostmortemCtrl'
