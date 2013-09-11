@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('publicApp')
-  .controller('ScheduleCtrl', function ($scope, email, $location, interview, $q) {
+angular.module('ScreenEasyApp')
+  .controller('ScheduleCtrl', function ($scope, $http) {
      $scope.scheduleInterview = function() {
-        // generate hash for the interview        
+        // generate hash for the interview
         var hash = "1234"
         var interviewInput = {
            interviewer: $scope.interviewer,

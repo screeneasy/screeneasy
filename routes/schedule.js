@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+var Sequelize = require("sequelize")
 
 module.exports = function(app, nconf) {
    var connectionString = nconf.get('db:mongo');
@@ -27,6 +27,7 @@ module.exports = function(app, nconf) {
            else
               res.send({status:'success'});
       });
+
    });
 
    app.get('/interview/find', function(req,res) {

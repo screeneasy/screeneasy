@@ -28,7 +28,7 @@ module.exports = function(app, nconf) {
 
     app.get('/v1/interview/questions', function(req, res) {
       query = client.query('SELECT * FROM interview_questions');
-      var rows = []
+      var rows = [];
       query.on('row', function(row) {
           rows.push(row);
       });
@@ -36,4 +36,9 @@ module.exports = function(app, nconf) {
           res.json(rows);
       });
     });
-}
+
+    // Delete a specific interview question
+    app.delete('/v1/interview/questions/:id', function(req, res) {
+
+    });
+};

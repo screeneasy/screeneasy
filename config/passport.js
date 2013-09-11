@@ -5,8 +5,8 @@ var LocalStrategy = require('passport-local').Strategy;
 var users = [];
 
 var localUsers = [
-    { id: 1, username: 'bob', password: 'secret', email: 'bob@example.com' }
-  , { id: 2, username: 'jay', password: 'jay', email: 'jay@example.com' }
+    { id: 1, username: 'bob', password: 'secret', email: 'bob@example.com' },
+    { id: 2, username: 'jay', password: 'jay', email: 'jay@example.com' }
 ];
 
 function findById(user, fn) {
@@ -29,8 +29,8 @@ function findByUsername(username, fn) {
 }
 
 var localUsers = [
-    { id: 1, username: 'bob', password: 'secret', email: 'bob@example.com' }
-  , { id: 2, username: 'joe', password: 'birthday', email: 'joe@example.com' }
+    { id: 1, username: 'bob', password: 'secret', email: 'bob@example.com' },
+    { id: 2, username: 'joe', password: 'birthday', email: 'joe@example.com' }
 ];
 
 module.exports = function(passport, nconf) {
@@ -73,7 +73,7 @@ module.exports = function(passport, nconf) {
             if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
             if (user.password != password) { return done(null, false, { message: 'Invalid password' }); }
             return done(null, user);
-          })
+          });
         });
       }
     ));
@@ -91,4 +91,4 @@ module.exports = function(passport, nconf) {
           done(null, obj);
       }
     });
-}
+};

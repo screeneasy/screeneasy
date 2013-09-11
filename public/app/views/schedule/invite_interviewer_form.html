@@ -1,0 +1,28 @@
+<div class="interviewer">
+    <form class="form-horizontal" role="form">
+      <div class="form-group">
+        <label for="interviewer.name" class="col-lg-2 control-label">Name</label>
+        <div class="col-lg-6">
+          <input type="text" class="form-control" id="interviewer.name" placeholder="John Smith" ng-model="interviewer.name">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="interviewer.email" class="col-lg-2 control-label">Email</label>
+        <div class="col-lg-6">
+          <input type="text" class="form-control" id="interviewer.email" placeholder="john.smith@gmail.com" ng-model="interviewer.email">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="interviewer.phone" class="col-lg-2 control-label">Phone</label>
+        <div class="col-lg-6">
+          <input type="text" class="form-control" id="interviewer.phone" placeholder="(206) 123-4567" ng-model="interviewer.phone">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-lg-offset-4 col-lg-6">
+          <button type="submit" class="btn btn-default" ng-click="inviteInterviewer();">Invite</button>
+          <button type="reset" class="btn btn-link">Cancel</a>
+        </div>
+      </div>
+    </form>
+</div>

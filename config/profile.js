@@ -1,1 +1,1 @@
-var profile = {}
+var profile = {};

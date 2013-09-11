@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('publicApp')
+angular.module('ScreenEasyApp')
   .controller('QuestionsCtrl', function ($scope, interviewQuestion) {
      var interview_promise = interviewQuestion.getAll();
 

@@ -3,7 +3,7 @@
 describe('Controller: ScheduleCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('publicApp'));
+  beforeEach(module('ScreenEasyApp'));
 
   var ScheduleCtrl,
     scope;

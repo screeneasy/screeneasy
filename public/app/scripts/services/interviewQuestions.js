@@ -1,27 +1,27 @@
 'use strict';
 
-angular.module('publicApp')
+angular.module('ScreenEasyApp')
   .factory('interviewQuestion', function ($http) {
     // Build an interview questions class
-    var endpoint = "http://127.0.0.1:3000/v1/interview/questions";
+    var endpoint = 'http://127.0.0.1:3000/v1/interview/questions';
 
     var interview_questions = function(data) {
         angular.extend(this, data);
-    }
+    };
 
     // GET: Get a specific interview question
     interview_questions.get = function(id) {
         return $http.get(endpoint + '/' + id).then(function(response) {
             return new interview_questions(response.data);
         });
-    }
+    };
 
     // GET: Get all interview question
     interview_questions.getAll = function() {
         return $http.get(endpoint).then(function(response) {
             return new interview_questions(response.data);
         });
-    }
+    };
 
     // POST: Create a new interview question
     interview_questions.prototype.create = function() {
@@ -37,7 +37,7 @@ angular.module('publicApp')
 
             return interview_question;
         });
-    }
+    };
 
     return interview_questions;
   });

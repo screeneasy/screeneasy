@@ -1,5 +1,5 @@
 'use strict';
 
-angular.module('publicApp')
+angular.module('ScreenEasyApp')
  .controller('MainCtrl', function ($scope) {
  });

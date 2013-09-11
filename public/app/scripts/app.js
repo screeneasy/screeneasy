@@ -1,27 +1,31 @@
 'use strict';
 
-angular.module('publicApp', ['fireace', 'ngResource','ui.bootstrap','simplewebrtc'])
+angular.module('ScreenEasyApp', ['fireace', 'ngResource','ui.bootstrap','simplewebrtc'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
+      .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'
+      })
       .when('/candidate/setup', {
-        templateUrl: 'views/list_questions.html',
+        templateUrl: 'views/questions.html',
         controller: 'QuestionsCtrl'
       })
       .when('/schedule', {
-         templateUrl: 'views/schedule.html',
-         controller: 'ScheduleCtrl'
+        templateUrl: 'views/schedule.html',
+        controller: 'ScheduleCtrl'
       })
       .when('/interviews', {
          templateUrl: 'views/interviews.html',
          controller: 'InterviewsCtrl'
       })
       .when('/postmortem/:hash', {
-         templateUrl: 'views/postmortem.html',
-         controller: 'PostmortemCtrl'
+        templateUrl: 'views/postmortem.html',
+        controller: 'PostmortemCtrl'
       })
       .when('/interview/:hash', {
         templateUrl: 'views/interview.html',
