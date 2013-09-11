@@ -14,10 +14,10 @@ module.exports = function(app, nconf) {
     app.post('/v1/interview/questions', function(req, res) {
       var now = new Date().toUTCString();
       var title = req.body.title;
-      var source = req.body.source;
+      var tags = req.body.tags;
       var body = req.body.body;
 
-      client.query('INSERT INTO interview_questions (title, body, source, created) VALUES ($1, $2, $3, $4)', [title, body, source, now], function(err, result) {
+      client.query('INSERT INTO interview_questions (title, body, tags, created) VALUES ($1, $2, $3, $4)', [title, body, tags, now], function(err, result) {
           if(err) {
             res.json(err);
           };
