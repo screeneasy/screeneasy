@@ -42,11 +42,7 @@
 
             <ul class="row">
               <li class="col-sm-6" ng-repeat="question in questions | interviewQuestions:searchQuestions">
-                  <p>id: {{question.id}}</p>
-                  <p>title: {{question.title}}</p>
-                  <p>body: {{question.body}}</p>
-                  <p>source: {{question.source}}</p>
-                  <p>created: {{question.created}}</p>
+                  <interview-question question="question"></interview-question>
               </li>
             </ul>
         </div>
