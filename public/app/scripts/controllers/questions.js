@@ -21,8 +21,6 @@ angular.module('ScreenEasyApp')
 
      $scope.deleteQuestion = function() {
         var question = new interviewQuestion();
-        var delete_status = question.delete($scope.question.id);
-        $scope.is_deleted = delete_status;
-        return delete_status;
+        $scope.is_deleted = question.delete($scope.question.id);
      };
   });
