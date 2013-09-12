@@ -1,21 +1,22 @@
 'use strict';
 
 angular.module('ScreenEasyApp')
-  .controller('QuestionsCtrl', function ($scope, interviewQuestion) {
-     var interview_promise = interviewQuestion.getAll();
-
-     $scope.questions = [];
-     interview_promise.then(function(questions) {
-        $scope.questions = questions;
-     });
+  .controller('QuestionsCtrl', ['$scope', 'interviewQuestionResource', function ($scope, interviewQuestionResource) {
+     $scope.questions = interviewQuestionResource.query();
 
      $scope.addQuestion = function() {
-        // instantiate interview question with user inputs
-        var question = new interviewQuestion();
-        question.title  = $scope.question.title,
-        question.source = $scope.question.source,
-        question.body   = $scope.question.body;
+        var interviewQuestion = new interviewQuestionResource();
+        interviewQuestion.title = $scope.question.title;
+        interviewQuestion.body = $scope.question.body;
+        interviewQuestion.tags = $scope.question.tags;
+        var resp = interviewQuestion.$save();
+     };
 
-        question.create();
-     }
-  });
+     $scope.is_deleted = false;
+
+     $scope.deleteQuestion = function(question) {
+        interviewQuestionResource.delete({id:$scope.question.id}, function(resp) {
+            $scope.is_deleted = resp;
+        });
+     };
+  }]);
