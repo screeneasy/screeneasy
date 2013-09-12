@@ -23,7 +23,7 @@ ScreenEasy app
 
 # Import Schema
 ```
-- node schema.js
+- node utils/schema.js
 ```
 
 # Run project
