@@ -3,6 +3,7 @@ from boto import Config as BotoConfig
 from boto.s3.key import Key
 import argparse
 import boto
+import os
 
 class AwsConfig(BotoConfig):
     """
