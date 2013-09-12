@@ -7,26 +7,26 @@ module.exports = function(app, nconf) {
     client = new pg.Client(connectionString);
     client.connect();
 
-    app.options('/v1/interview/questions', function(req, res) {
+    app.options('/v1/interview/question', function(req, res) {
       res.send(200);
     });
 
-    app.post('/v1/interview/questions', function(req, res) {
+    app.post('/v1/interview/question', function(req, res) {
       var now = new Date().toUTCString();
       var title = req.body.title;
-      var source = req.body.source;
+      var tags = req.body.tags;
       var body = req.body.body;
 
-      client.query('INSERT INTO interview_questions (title, body, source, created) VALUES ($1, $2, $3, $4)', [title, body, source, now], function(err, result) {
+      client.query('INSERT INTO interview_questions (title, body, tags, created) VALUES ($1, $2, $3, $4)', [title, body, tags, now], function(err, result) {
           if(err) {
             res.json(err);
-          }
+          };
 
           res.json(req.body);
       });
     });
 
-    app.get('/v1/interview/questions', function(req, res) {
+    app.get('/v1/interview/question', function(req, res) {
       query = client.query('SELECT * FROM interview_questions');
       var rows = [];
       query.on('row', function(row) {
@@ -38,7 +38,10 @@ module.exports = function(app, nconf) {
     });
 
     // Delete a specific interview question
-    app.delete('/v1/interview/questions/:id', function(req, res) {
-
+    app.delete('/v1/interview/question/:id', function(req, res) {
+      query = client.query('DELETE FROM interview_questions WHERE id = ' + req.params.id);
+      query.on('end', function(result) {
+          res.json(result.rowCount === 1);
+      });
     });
 };
