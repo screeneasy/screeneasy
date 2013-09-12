@@ -57,13 +57,13 @@ class ConfigManager():
 
         e.g:
             s3://screeneasy/config/latest/config.json
-            s3://screeneasy/config/2013-09-11T21:52:34.412464/config.json
+            s3://screeneasy/config/2013/09/11/22-55-08/config.json
 
         Args:
             config_file string - config file path
         """
         import datetime
-        utc = datetime.datetime.utcnow()
+        now = datetime.datetime.now()
 
         bucket = self.s3.get_bucket('screeneasy')
 
@@ -75,10 +75,10 @@ class ConfigManager():
         print "uploaded to s3://screeneasy/config/latest/config.json"
 
         # Upload a copy for archiving purpose
-        key_name = 'config/%s/config.json' % utc.strftime("%Y-%m-%d")
+        key_name = 'config/%s/config.json' % now.strftime("%Y/%m/%d/%H-%M-%S")
         k.key = key_name
         k.set_contents_from_filename(config_file)
-        print "uploaded to s3://screeneasy/%s/config.json" % key_name
+        print "uploaded to s3://screeneasy/%s" % key_name
 
 if __name__ == '__main__':
     def parse_arg_options():

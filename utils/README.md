@@ -18,7 +18,13 @@ Upload config (default to /tmp/config.json)
 
 Upload config from a specific path:
 ./config.py -u -c /tmp/config.json
+
+Output:
+> ./config.py -u
+uploaded to s3://screeneasy/config/latest/config.json
+uploaded to s3://screeneasy/config/2013/09/12/09/config.json
 ```
+
 
 To download the config:
 ```
