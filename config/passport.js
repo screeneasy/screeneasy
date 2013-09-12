@@ -9,6 +9,10 @@ var localUsers = [
     { id: 2, username: 'jay', password: 'jay', email: 'jay@example.com' }
 ];
 
+var pg = require('pg').native;
+var client;
+var query;
+
 function findById(user, fn) {
   var idx = user.id - 1;
   if (localUsers[idx]) {
@@ -28,21 +32,64 @@ function findByUsername(username, fn) {
   return fn(null, null);
 }
 
-var localUsers = [
-    { id: 1, username: 'bob', password: 'secret', email: 'bob@example.com' },
-    { id: 2, username: 'joe', password: 'birthday', email: 'joe@example.com' }
-];
-
 module.exports = function(passport, nconf) {
+    var connectionString = process.env.DATABASE_URL || nconf.get('db:dsn');
+    client = new pg.Client(connectionString);
+    client.connect();
+
     passport.use(new TwitterStrategy({
             consumerKey: nconf.get('twitter:key'),
             consumerSecret: nconf.get('twitter:secret'),
-            callbackURL: nconf.get('twitter:callback_url')
+            callbackURL: nconf.get('twitter:callback_url'),
+            passReqToCallback: true
         },
-        function(token, tokenSecret, profile, done) {
-            var user = users[profile.id] ||
-                       (users[profile.id] = { id: profile.id, name: profile.username});
-            done(null, user);
+        function(req, token, tokenSecret, profile, done) {
+            debugger;
+            if (!req.user) {
+                // Authenticate on Twitter
+                /*var user = users[profile.id] || 
+                  (users[profile.id] = { id: profile.id, name: profile.username})*/
+                // TODO: get a user from the db and return that user
+                var user = [];
+                /*query = client.query('SELECT * FROM users WHERE twitter_id = 231250747', function(err, result) {
+                  user = result.rows;
+                });*/
+                var queryConfig = {
+                  text: 'SELECT * FROM users WHERE twitter_id = \'' + profile.id + '\''
+                  //values: ['231250747']
+                };
+
+                query = client.query(queryConfig, function(err, result) {
+                  user = result.rows;
+                });
+                /*query = client.query('SELECT * FROM users WHERE twitter_id = $1', ['231250747'], function(err, result) {
+                  if (err) {
+                    res.json(err);
+                  }
+                  user = result.rows;
+                });*/
+                /*var user = [];
+                query.on('row', function(row) {
+                    user.push(row);
+                });*/
+
+                // Found an existing user
+                if (user.length > 0) {
+                  return done(null, user[0]);
+                } else {
+                  // Need to insert new user into db
+                  var now = new Date().toUTCString();
+                  var twitter_id = profile.id;
+
+                  client.query('INSERT INTO users (twitter_id, created) VALUES ($1, $2)', [twitter_id, now]);
+                  client.query('SELECT * FROM users WHERE twitter_id = $1', [profile.id]);
+                  return done(null, user[0]);
+                }
+
+                
+            } else {
+                // TODO: Associate Twitter account with user
+            }
         }
     ));
 

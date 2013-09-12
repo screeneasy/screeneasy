@@ -47,7 +47,7 @@ if ('development' == app.get('env')) {
 }
 
 //Load up config
-nconf.file({ file: '/tmp/config.json' });
+nconf.file({ file: './tmp/config.json' });
 
 // Init passport config
 require('./config/passport.js')(passport, nconf);

@@ -1,10 +1,17 @@
 module.exports = function(routes, app, passport, io) {
     app.get('/', routes.index);
 
-    app.get('/auth/twitter', passport.authenticate('twitter'));
-    app.get('/auth/twitter/callback', passport.authenticate('twitter', {
-        successRedirect: '/', failureRedirect: '/auth/twitter'
-    }));
+    //app.get('/auth/twitter', passport.authenticate('twitter'));
+    app.get('/auth/twitter',
+      passport.authorize('twitter', { failureRedirect: '/login' })
+    );
+
+    app.get('/auth/twitter/callback',
+      passport.authenticate('twitter', { failureRedirect: '/login' }),
+      function(req, res) {
+        res.redirect('/');
+      }
+    );
 
     app.get('/login', function(req, res) {
       res.render('login', { user: req.user, message: req.body.error });
