@@ -44,10 +44,9 @@ module.exports = function(passport, nconf) {
             passReqToCallback: true
         },
         function(req, token, tokenSecret, profile, done) {
-            debugger;
             if (!req.user) {
                 // Authenticate on Twitter
-                /*var user = users[profile.id] || 
+                /*var user = users[profile.id] ||
                   (users[profile.id] = { id: profile.id, name: profile.username})*/
                 // TODO: get a user from the db and return that user
                 var user = [];
@@ -86,7 +85,7 @@ module.exports = function(passport, nconf) {
                   return done(null, user[0]);
                 }
 
-                
+
             } else {
                 // TODO: Associate Twitter account with user
             }
