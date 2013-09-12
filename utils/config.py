@@ -4,6 +4,7 @@ from boto.s3.key import Key
 import argparse
 import boto
 import os
+import sys
 
 class AwsConfig(BotoConfig):
     """
@@ -35,13 +36,17 @@ class ConfigManager():
         aws_config = AwsConfig()
         aws_key     = aws_config.expand_get('Credentials', 'aws_access_key_id')
         aws_secret  = aws_config.expand_get('Credentials', 'aws_secret_access_key')
-        self.s3 = boto.connect_s3(aws_key, aws_secret)
+        s3 = boto.connect_s3(aws_key, aws_secret)
+        try:
+            self.s3_bucket = s3.get_bucket('screeneasy')
+        except boto.exception.S3ResponseError, e:
+            sys.exit('Incorrect aws credentails. Please check ~/.boto or environment variables aws_access_key_id and aws_secret_access_key')
 
     def download_config(self):
         """
             Download latst version of config.json
         """
-        bucket = self.s3.get_bucket('screeneasy')
+        bucket = self.s3_bucket
         k = Key(bucket)
         k.key = 'config/latest/config.json'
         content = k.get_contents_as_string()
@@ -66,7 +71,7 @@ class ConfigManager():
         import datetime
         now = datetime.datetime.now()
 
-        bucket = self.s3.get_bucket('screeneasy')
+        bucket = self.s3_bucket
 
         k = Key(bucket)
 
