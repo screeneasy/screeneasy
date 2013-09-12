@@ -22,7 +22,7 @@ Upload config from a specific path:
 Output:
 > ./config.py -u
 uploaded to s3://screeneasy/config/latest/config.json
-uploaded to s3://screeneasy/config/2013/09/12/09/config.json
+uploaded to s3://screeneasy/config/2013/09/11/22-55-08/config.json
 ```
 
 
