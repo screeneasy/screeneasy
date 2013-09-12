@@ -7,7 +7,7 @@
                 <h4 class="sub_headline text-muted">Candidate Information</h4>
                 <form class="form-horizontal" role="form">
                   <div class="form-group">
-                    <label for="candidate.name" class="col-lg-2 control-label">Title</label>
+                    <label for="candidate.name" class="col-lg-2 control-label">Name</label>
                     <div class="col-lg-6">
                       <input type="text" class="form-control" id="candidate.name" placeholder="John Smith" ng-model="candidate.name">
                     </div>
@@ -15,7 +15,7 @@
                   <div class="form-group">
                     <label for="candidate.email" class="col-lg-2 control-label">Email</label>
                     <div class="col-lg-6">
-                      <input type="text" class="form-control" id="candidate.email" placeholder="john.smith@gmail.com" ng-model="candidate.email">
+                      <input type="email" class="form-control" id="candidate.email" placeholder="john.smith@gmail.com" ng-model="candidate.email" required>
                     </div>
                   </div>
                   <div class="form-group">
