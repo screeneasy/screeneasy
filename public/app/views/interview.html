@@ -16,14 +16,9 @@
            <p ng-repeat="project in candidateSummary.notableProjects">{{project.name}} - {{project.description}}</p>
         </div>
 
-        <div ng-repeat="question in questions">
-           <h3>{{question.question}}</h3>
-           <textarea></textarea>
-        </div>
-
         <div ng-repeat="question in techQuestions">
-           <h3>{{question.question}}</h3>
-           <fireace  firebaseurl="https://screeneasy.firebaseIO.com/interview/questions/{{hash}}/{{question.id}}"></fireace>
+           <h3>{{question.title}}</h3>
+           <fireace firebaseurl="https://screeneasy.firebaseIO.com/interview/questions/{{hash}}/{{question.id}}"></fireace>
         </div>
         <br/>
         <input type="submit" class="btn" value="End Interview" />
