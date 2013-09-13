@@ -20,6 +20,6 @@ angular.module('ScreenEasyApp')
      };
 
      $scope.inviteCandidate = function() {
-        $store.set('candidate.name',$scope.candidate.name);
+        $store.set('candidate.github_handle',$scope.candidate.github_handle);
      };
   }]);

@@ -7,7 +7,7 @@ angular.module('ScreenEasyApp')
          $scope.techQuestions = interviewQuestionResource.query();
          $scope.hash = $routeParams.hash;
 
-         var userParam = $store.get('candidate.name');
+         var userParam = $store.get('candidate.github_handle');
 
          github.get({
            user: userParam,
