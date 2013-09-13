@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('ScreenEasyApp')
-  .controller('InterviewsCtrl', function ($scope, interview) {
-     interview.find().success(function(data) {
+  .controller('InterviewsCtrl', function ($scope, interviewResource) {
+     interview.get().success(function(data) {
          $scope.interviews = data;  
      });
   });

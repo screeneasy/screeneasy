@@ -19,18 +19,19 @@ module.exports = function(app, nconf) {
 
 
    mongoose.connect(connectionString);
-   app.post('/interview/create', function(req,res) {
+   app.post('/interview', function(req,res) {
       var interview = new Interview(req.body);
       interview.save(function (err) {
-           if (err) // ...
+           if (err){ // ...
               res.send({status: 'error', message: 'failed to save interview'})
+           }
            else
               res.send({status:'success'});
       });
 
    });
 
-   app.get('/interview/find', function(req,res) {
+   app.get('/interview', function(req,res) {
       Interview.find({},function(err, data) {
          if (err)
             res.send({status: 'error', message: 'failed to find interviews'})

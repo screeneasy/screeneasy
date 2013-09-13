@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('ScreenEasyApp')
-  .service('interview', function interview($http) {
+  .service('interviewResource', function interview($http) {
     // AngularJS will instantiate a singleton by calling "new" on this function
     return {
-       create: function(interview) {
-           return $http.post('/interview/create',interview);
+       save: function(interview) {
+           return $http.post('/interview',interview);
        },
-       find: function(params) {
-           return $http.get('/interview/find');
+       get: function(params) {
+           return $http.get('/interview');
        }
     };
   });
