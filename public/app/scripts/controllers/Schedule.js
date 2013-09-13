@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ScreenEasyApp')
-  .controller('ScheduleCtrl', function ($scope, $http) {
+  .controller('ScheduleCtrl', ['$scope', '$http', '$store', function ($scope, $http, $store) {
      $scope.scheduleInterview = function() {
         // generate hash for the interview
         var hash = "1234"
@@ -17,6 +17,9 @@ angular.module('ScreenEasyApp')
         // save the interview
 
         // send an email to both candidates
+     };
 
-     }
-  });
+     $scope.inviteCandidate = function() {
+        $store.set('candidate.name',$scope.candidate.name);
+     };
+  }]);
