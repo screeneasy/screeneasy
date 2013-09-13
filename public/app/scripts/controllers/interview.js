@@ -1,16 +1,13 @@
 'use strict';
 
 angular.module('ScreenEasyApp')
-  .controller('InterviewCtrl', ['$scope', '$routeParams', 'interviewQuestionResource', 'github', '$location',
-     function ($scope, $routeParams, interviewQuestionResource, github, $location) {
-         $scope.questions = [{id: 1, question:"how old are you?"}];
-
+  .controller('InterviewCtrl', ['$scope', '$routeParams', 'interviewQuestionResource', 'github', '$location', '$store', function ($scope, $routeParams, interviewQuestionResource, github, $location, $store) {
          $scope.hash = $location.hash;
 
-         $scope.techQuestions = [{id: 2,question: "Write a function to square a number"},{id: 3, question: "write a function to be magic!"}];
+         $scope.techQuestions = interviewQuestionResource.query();
          $scope.hash = $routeParams.hash;
 
-         var userParam = 'crabasa';
+         var userParam = $store.get('candidate.github_handle');
 
          github.get({
            user: userParam,
