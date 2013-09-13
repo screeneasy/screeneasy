@@ -1,0 +1,16 @@
+<table class="table">
+   <thead>
+      <tr>
+         <th>Interviewer Name</th>
+         <th>Candidate Name</th>
+         <th>Interview Date</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr ng-repeat="interview in interviews">
+         <td>{{interview.interviewer.name}} ({{interview.interviewer.email}})</td>
+         <td>{{interview.candidate.name}} ({{interview.candidate.email}})</td>
+         <td>{{interview.interviewDate}}</td>
+      </tr>
+   </tbody>
+</table>

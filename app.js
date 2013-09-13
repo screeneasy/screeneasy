@@ -66,6 +66,10 @@ require('./config/candidate_questions.js')(app, nconf);
 
 // schedule routes
 require('./routes/schedule.js')(app, nconf);
+
+// email routes
+require('./routes/email.js')(app,nconf);
+
 server.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));
 });

@@ -1,6 +1,5 @@
-<div ng-include="'views/header.html'"></div>
-
 <div class="container">
+    <p ng-repeat="error in errors">{{error}}</p>
     <div class="row">
         <div class="col-md-6">
             <div class="candidate">
@@ -15,7 +14,7 @@
                   <div class="form-group">
                     <label for="candidate.email" class="col-lg-2 control-label">Email</label>
                     <div class="col-lg-6">
-                      <input type="email" class="form-control" id="candidate.email" placeholder="john.smith@gmail.com" ng-model="candidate.email" required>
+                      <input type="text" class="form-control" id="candidate.email" placeholder="john.smith@gmail.com" ng-model="candidate.email" required>
                     </div>
                   </div>
                   <div class="form-group">
@@ -24,25 +23,38 @@
                       <input type="text" class="form-control" id="candidate.phone" placeholder="(206) 123-4567" ng-model="candidate.phone">
                     </div>
                   </div>
+                </form>
+            </div>
+
+            <div class="interviewer">
+                <h4 class="sub_headline text-muted">Interviewer Information</h4>
+                <form class="form-horizontal" role="form">
                   <div class="form-group">
-                    <div class="col-lg-offset-4 col-lg-6">
-                      <button type="submit" class="btn btn-default" ng-click="inviteCandidate();">Invite</button>
-                      <button type="reset" class="btn btn-link">Cancel</a>
+                    <label for="interviewer.name" class="col-lg-2 control-label">Name</label>
+                    <div class="col-lg-6">
+                      <input type="text" class="form-control" id="interviewer.name" placeholder="John Smith" ng-model="interviewer.name">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="interviewer.email" class="col-lg-2 control-label">Email</label>
+                    <div class="col-lg-6">
+                      <input type="text" class="form-control" id="interviewer.email" placeholder="john.smith@gmail.com" ng-model="interviewer.email">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="interviewer.phone" class="col-lg-2 control-label">Phone</label>
+                    <div class="col-lg-6">
+                      <input type="text" class="form-control" id="interviewer.phone" placeholder="(206) 123-4567" ng-model="interviewer.phone">
                     </div>
                   </div>
                 </form>
             </div>
-
-            <h3>Invite the interviewer</h3>
-            <div ng-include="'views/schedule/invite_interviewer_form.html'"></div>
-            <input type="button" value="Invite more interviewer"></input>
         </div>
 
         <div class="col-md-6">
             <h3>Pick a date and time</h3>
-            <datepicker ng-model="interviewDate" show-weeks="false"></datepicker>
-            <timepicker ng-model="interviewTime" hour-step="1" minute-step="15"></timepicker>
-
+            <input type="text" ng-model="interviewDate" placeholder="2012-08-12" />
+            <input type="text" ng-model="interviewTime" placeholder="12:30" />
         </div>
         <p>
            <input type="submit" value="Schedule" class="btn btn-info" ng-click="scheduleInterview()" />

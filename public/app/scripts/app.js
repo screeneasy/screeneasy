@@ -19,6 +19,10 @@ angular.module('ScreenEasyApp', ['fireace', 'ngRoute', 'ngResource','ui.bootstra
         templateUrl: 'views/schedule.html',
         controller: 'ScheduleCtrl'
       })
+      .when('/interviews', {
+         templateUrl: 'views/interviews.html',
+         controller: 'InterviewsCtrl'
+      })
       .when('/postmortem/:hash', {
         templateUrl: 'views/postmortem.html',
         controller: 'PostmortemCtrl'
