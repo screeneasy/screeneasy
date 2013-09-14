@@ -38,11 +38,11 @@
             <h4 class="sub_headline text-muted">Current questions</h4>
             <div class="form-group">
                 <input class="col-lg-8" type="text" ng-model="searchQuestions" placeholder="Search questions" />
-                <button type="submit" class="small-padding btn btn-sm">Search</button>
+                <button type="submit" class="col-lg-3 small-padding btn">Search</button>
             </div>
 
-            <ul class="row">
-              <li class="col-sm-6" ng-repeat="question in questions | interviewQuestions:searchQuestions">
+            <ul class="row list-unstyled">
+              <li class="col-sm-9" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}" ng-repeat="question in questions | interviewQuestions:searchQuestions">
                   <interview-question question="question"></interview-question>
               </li>
             </ul>

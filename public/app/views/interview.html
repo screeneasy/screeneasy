@@ -1,4 +1,8 @@
-<div id="container">
+<div ng-show="'showRedirect'">
+    Please <a href="#schedule">set up a candidate</a>. Redirect in 10 seconds.
+</div>
+
+<div id="container" ng-hide="'showRedirect'">
     <div id="video-share" class="">
         <screenshare room="{{hash}}"></screenshare>
     </div>
