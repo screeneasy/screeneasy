@@ -1,14 +1,10 @@
 'use strict';
 
 angular.module('ScreenEasyApp')
-  .service('interviewResource', function interview($http) {
-    // AngularJS will instantiate a singleton by calling "new" on this function
-    return {
-       save: function(interview) {
-           return $http.post('/interview',interview);
-       },
-       get: function(params) {
-           return $http.get('/interview');
-       }
-    };
-  });
+  .factory('interviewResource', ['$resource', function($resource) {
+    return $resource(
+         "http://127.0.0.1::port/interview",
+         {port: '3000'},
+         { "update": {method:"PUT"} }
+    );
+  }]);

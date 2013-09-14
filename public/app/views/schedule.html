@@ -45,6 +45,9 @@
                     <label for="interviewer.phone" class="col-lg-2 control-label">Phone</label>
                     <div class="col-lg-6">
                       <input type="text" class="form-control" id="interviewer.phone" placeholder="(206) 123-4567" ng-model="interviewer.phone">
+                    </div>
+                  </div>
+                  <div class="form-group">
                     <label for="candidate.github_handle" class="col-lg-2 control-label">GitHub name:</label>
                     <div class="col-lg-6">
                       <input type="text" class="form-control" id="candidate.github_handle" placeholder="johnsmith" ng-model="candidate.github_handle">
@@ -55,12 +58,15 @@
         </div>
 
         <div class="col-md-6">
-            <h3>Pick a date and time</h3>
+            <h4 class="sub_headline text-muted">Pick a date and time</h4>
             <input type="text" ng-model="interviewDate" placeholder="2012-08-12" />
             <input type="text" ng-model="interviewTime" placeholder="12:30" />
         </div>
-        <p>
+
+        <div class="clearfix"></div>
+
+        <span class="col-md-6">
            <input type="submit" value="Schedule" class="btn btn-info" ng-click="scheduleInterview()" />
-        </p>
+        </span>
     </div>
 </div>

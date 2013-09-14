@@ -17,7 +17,6 @@ module.exports = function(app, nconf) {
               interviewDate: Date
             });
 
-
    mongoose.connect(connectionString);
 
    app.options('/interview', function(req,res) {
@@ -27,21 +26,24 @@ module.exports = function(app, nconf) {
    app.post('/interview', function(req,res) {
       var interview = new Interview(req.body);
       interview.save(function (err) {
-           if (err){ // ...
-              res.send({status: 'error', message: 'failed to save interview'})
+           if (err){
+              res.send({status: 'error', message: 'failed to save interview'});
            }
-           else
+           else {
               res.send({status:'success'});
+           }
       });
 
    });
 
    app.get('/interview', function(req,res) {
       Interview.find({},function(err, data) {
-         if (err)
-            res.send({status: 'error', message: 'failed to find interviews'})
-         else
+         if (err) {
+            res.send({status: 'error', message: 'failed to find interviews'});
+         }
+         else {
             res.send(data);
+         }
       })
    });
 }
