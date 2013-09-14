@@ -41,8 +41,8 @@
                 <button type="submit" class="small-padding btn btn-sm">Search</button>
             </div>
 
-            <ul class="row">
-              <li class="col-sm-6" ng-repeat="question in questions | interviewQuestions:searchQuestions">
+            <ul class="row list-unstyled">
+              <li class="col-sm-9" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}" ng-repeat="question in questions | interviewQuestions:searchQuestions">
                   <interview-question question="question"></interview-question>
               </li>
             </ul>
