@@ -17,12 +17,20 @@ module.exports = function(app, nconf) {
       var tags = req.body.tags;
       var body = req.body.body;
 
-      client.query('INSERT INTO interview_questions (title, body, tags, created) VALUES ($1, $2, $3, $4)', [title, body, tags, now], function(err, result) {
+      client.query('INSERT INTO interview_questions (title, body, tags, created) VALUES ($1, $2, $3, $4) RETURNING id', [title, body, tags, now], function(err, result) {
           if(err) {
             res.json(err);
           };
 
-          res.json(req.body);
+          var returnVal = {
+            id: result.rows[0].id,
+            title: title,
+            body: body,
+            tags: tags,
+            created: now
+          };
+
+          res.json(returnVal);
       });
     });
 
