@@ -33,7 +33,6 @@ angular.module('ScreenEasyApp')
             angular.forEach($scope.questions, function(item, idx) {
                 if(JSON.stringify(item) === JSON.stringify(question)) {
                     $scope.questions.splice(idx, 1);
-                    console.log($scope.questions);
                     return;
                 }
             });
