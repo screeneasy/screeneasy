@@ -1,16 +1,21 @@
-<table class="table">
-   <thead>
-      <tr>
-         <th>Interviewer Name</th>
-         <th>Candidate Name</th>
-         <th>Interview Date</th>
-      </tr>
-   </thead>
-   <tbody>
-      <tr ng-repeat="interview in interviews">
-         <td>{{interview.interviewer.name}} ({{interview.interviewer.email}})</td>
-         <td>{{interview.candidate.name}} ({{interview.candidate.email}})</td>
-         <td>{{interview.interviewDate}}</td>
-      </tr>
-   </tbody>
-</table>
+<div class="row">
+    <h4 class="sub_headline text-muted">Screened Candidates:</h4>
+    <div class="form-group">
+        <input class="col-lg-4" type="text" ng-model="searchCandidate" placeholder="Search candidate" />
+        <button type="submit" class="col-lg-3 small-padding btn">Search</button>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-xs-6 col-sm-3 col-md-3" ng-repeat="interview in interviews | Candidate:searchCandidate">
+        <div class="profile">
+          <span class="">
+              <h4>
+                Candidate: <a href="#">{{interview.candidate.name}} ({{interview.candidate.email}})</a>
+              </h4>
+              <p>Conducted by: {{interview.interviewer.name}} ({{interview.interviewer.email}})</p>
+              <p>{{interview.interviewDate}}</p>
+          </span>
+        </div>
+    </div>
+</div>

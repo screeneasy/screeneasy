@@ -58,12 +58,15 @@
         </div>
 
         <div class="col-md-6">
-            <h3>Pick a date and time</h3>
-            <input type="date" ng-model="interviewDate" placeholder="2012-08-12" />
+            <h4 class="sub_headline text-muted">Pick a date and time</h4>
+            <input type="text" ng-model="interviewDate" placeholder="2012-08-12" />
             <input type="text" ng-model="interviewTime" placeholder="12:30" />
         </div>
-        <p>
+
+        <div class="clearfix"></div>
+
+        <span class="col-md-6">
            <input type="submit" value="Schedule" class="btn btn-info" ng-click="scheduleInterview()" />
-        </p>
+        </span>
     </div>
 </div>
