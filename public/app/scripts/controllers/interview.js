@@ -2,6 +2,19 @@
 
 angular.module('ScreenEasyApp')
   .controller('InterviewCtrl', ['$scope', '$routeParams', 'interviewQuestionResource', 'github', '$location', '$store', function ($scope, $routeParams, interviewQuestionResource, github, $location, $store) {
+         var user = $store.get('candidate.github_handle');
+         $scope.showRedirect = false;
+
+         // Candidate info is not set. Redirect to schedule page
+         if(!user) {
+            setTimeout(function() {
+                $scope.showRedirect = true;
+                $location.path("schedule");
+            }, 1000);
+         }
+
+         console.log(user);
+
          $scope.hash = $location.hash;
 
          var promise = interviewQuestionResource.query();
@@ -11,10 +24,9 @@ angular.module('ScreenEasyApp')
          });
          $scope.hash = $routeParams.hash;
 
-         var userParam = $store.get('candidate.github_handle');
 
          github.get({
-           user: userParam,
+           user: user,
            repo: ''
          }, function(res) {
            $scope.summary = res.data;
