@@ -13,8 +13,6 @@ angular.module('ScreenEasyApp')
             }, 1000);
          }
 
-         console.log(user);
-
          $scope.hash = $location.hash;
 
          var promise = interviewQuestionResource.query();
