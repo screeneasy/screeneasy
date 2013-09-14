@@ -4,7 +4,11 @@ angular.module('ScreenEasyApp')
   .controller('InterviewCtrl', ['$scope', '$routeParams', 'interviewQuestionResource', 'github', '$location', '$store', function ($scope, $routeParams, interviewQuestionResource, github, $location, $store) {
          $scope.hash = $location.hash;
 
-         $scope.techQuestions = interviewQuestionResource.query();
+         var promise = interviewQuestionResource.query();
+
+         promise.$promise.then(function(res) {
+             $scope.techQuestions = res;
+         });
          $scope.hash = $routeParams.hash;
 
          var userParam = $store.get('candidate.github_handle');

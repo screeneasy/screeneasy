@@ -2,7 +2,11 @@
 
 angular.module('ScreenEasyApp')
   .controller('QuestionsCtrl', ['$scope', 'interviewQuestionResource', function ($scope, interviewQuestionResource) {
-     $scope.questions = interviewQuestionResource.query();
+     var promise = interviewQuestionResource.query();
+
+     promise.$promise.then(function(res) {
+         $scope.questions = res;
+     });
 
      $scope.addQuestion = function() {
         var interviewQuestion = new interviewQuestionResource();
