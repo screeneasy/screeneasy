@@ -1,38 +1,50 @@
 'use strict';
 
 angular.module('ScreenEasyApp')
-  .controller('ScheduleCtrl', ['$scope', '$http', '$q', '$location', '$store', 'interviewResource', 'email', function ($scope, $http, $q, $location, $store, interviewResource, email) {
+  .controller('ScheduleCtrl', ['$scope', '$location', '$store', 'interviewResource', 'emailResource', function ($scope, $location, $store, interviewResource, emailResource) {
       $scope.scheduleInterview = function() {
-          // generate hash for the interview
-          var hash = '1234';
-          var interviewInput = {
-            interviewer: $scope.interviewer,
-            candidate: $scope.candidate,
-            interviewDate:  $scope.interviewDate + ' ' + $scope.interviewTime
-          };
+          // @TODO Need to refactor this
+          // send notification email
+          var candidate_profile = new emailResource();
+          candidate_profile.to = $scope.candidate.email;
+          candidate_profile.message = 'hello';
 
-          $q.all([
-            interviewResource.save(interviewInput),
-            email.send({to:interviewInput.candidate.email, message: 'hello'}),
-            email.send({to:interviewInput.interviewer.email,message: 'hi'})
-          ])
-          .then(function(responses) {
-            var errors = responses.filter(function(v,k) { return v.data.status == "error"; });
-            var errors = errors.map(function(v,k) { return v.data.message; });
-            if (!errors.length) {
-               $location.path('/interviews')
-            }
-            else {
-               $scope.errors = errors;
-            }
-          }, function error(errors) {
-            $scope.errors = errors;
+          // send an email to both candidates
+          var email_promise = candidate_profile.$save();
+
+          email_promise.then(function(data) {
+              console.log(data);
+          });
+
+          var interviewer_profile = new emailResource();
+          interviewer_profile.to = $scope.candidate.email;
+          interviewer_profile.message = 'hello';
+
+          // send an email to both candidates
+          var email_promise = interviewer_profile.$save();
+
+          email_promise.then(function(data) {
+              console.log(data);
           });
 
           // save the interview
-          $store.set('candidate.github_handle',$scope.candidate.github_handle);
+          $store.set('candidate.info',$scope.candidate);
 
-          // send an email to both candidates
+          // store into db
+          var interviewInput = {
+            interviewer   : $scope.interviewer,
+            candidate     : $scope.candidate,
+            interviewDate : $scope.interviewDate + ' ' + $scope.interviewTime
+          };
+
+          var setup_interview_promise = interviewResource.save(interviewInput).$promise;
+
+          setup_interview_promise.then(function(data) {
+            console.log(data);
+          });
+
+          // Generate an unique hash
+
       };
 
     }]);
