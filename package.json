@@ -16,7 +16,8 @@
     "passport-github" : "0.1.5",
     "passport-local" : "0.1.6",
     "passport-twitter" : "1.0.0",
-    "pg" : "2.5.0",
+    "pg" : "2.6.2",
+    "sendgrid": "0.3.0-rc.1.7",
     "sequelize": "2.0.0-beta.0",
     "mongoose": "3.6.19",
     "socket.io" : "0.9.16"
