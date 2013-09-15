@@ -27,9 +27,10 @@ angular.module('ScreenEasyApp')
           });
 
           // save the interview
-          $store.set('candidate.github_handle',$scope.candidate.github_handle);
+          $store.set('candidate.info',$scope.candidate);
 
           // Generate an unique hash
+
       };
 
     }]);
