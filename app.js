@@ -49,6 +49,9 @@ if ('development' == app.get('env')) {
 //Load up config
 nconf.file({ file: '/tmp/config.json' });
 
+// init sendgrid instance
+var mailservice = require('sendgrid')(nconf.get('notification:sendgrid:apiuser'), nconf.get('notification:sendgrid:apikey'));
+
 // Init passport config
 require('./config/passport.js')(passport, nconf);
 
@@ -59,7 +62,7 @@ var io = require('socket.io').listen(server);
 require('./config/routes.js')(routes, app, passport, io);
 
 // Candidate profile
-require('./config/candidate_profile.js')(app, nconf);
+require('./config/candidate_profile.js')(app);
 
 // Candidate questions
 require('./config/candidate_questions.js')(app, nconf);
@@ -68,7 +71,7 @@ require('./config/candidate_questions.js')(app, nconf);
 require('./routes/schedule.js')(app, nconf);
 
 // email routes
-require('./routes/email.js')(app,nconf);
+require('./routes/email.js')(app, mailservice);
 
 server.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));
