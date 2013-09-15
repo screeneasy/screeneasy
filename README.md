@@ -33,7 +33,7 @@ You can also download the config with:
 run utils/config.py -d
 ```
 
-See (utils/README.md) for details
+See [Config README](utils/README.md) for details
 
 # Import Schema
 ```
