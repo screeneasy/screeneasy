@@ -19,3 +19,13 @@ fs.readFile(schema_file, function(err, data) {
     query = client.query(data.toString());
     query.on('end', function() { client.end(); })
 });
+
+schema_file = 'schemas/users.sql';
+fs.readFile(schema_file, function(err, data) {
+    if(err) {
+        throw schema_file + " must exists";
+    }
+
+    query = client.query(data.toString());
+    query.on('end', function() { client.end(); })
+});

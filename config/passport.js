@@ -1,6 +1,7 @@
 var TwitterStrategy = require('passport-twitter').Strategy;
 var GitHubStrategy = require('passport-github').Strategy;
 var LocalStrategy = require('passport-local').Strategy;
+//var User = require('../models/User.js');
 
 var users = [];
 
@@ -36,58 +37,39 @@ module.exports = function(passport, nconf) {
     var connectionString = process.env.DATABASE_URL || nconf.get('db:dsn');
     client = new pg.Client(connectionString);
     client.connect();
+    var user = {};
 
     passport.use(new TwitterStrategy({
             consumerKey: nconf.get('twitter:key'),
             consumerSecret: nconf.get('twitter:secret'),
-            callbackURL: nconf.get('twitter:callback_url'),
-            passReqToCallback: true
+            callbackURL: nconf.get('twitter:callback_url')
         },
-        function(req, token, tokenSecret, profile, done) {
-            if (!req.user) {
-                // Authenticate on Twitter
-                /*var user = users[profile.id] ||
-                  (users[profile.id] = { id: profile.id, name: profile.username})*/
-                // TODO: get a user from the db and return that user
-                var user = [];
-                /*query = client.query('SELECT * FROM users WHERE twitter_id = 231250747', function(err, result) {
-                  user = result.rows;
-                });*/
-                var queryConfig = {
-                  text: 'SELECT * FROM users WHERE twitter_id = \'' + profile.id + '\''
-                  //values: ['231250747']
-                };
-
-                query = client.query(queryConfig, function(err, result) {
-                  user = result.rows;
-                });
-                /*query = client.query('SELECT * FROM users WHERE twitter_id = $1', ['231250747'], function(err, result) {
-                  if (err) {
-                    res.json(err);
-                  }
-                  user = result.rows;
-                });*/
-                /*var user = [];
-                query.on('row', function(row) {
-                    user.push(row);
-                });*/
-
-                // Found an existing user
-                if (user.length > 0) {
-                  return done(null, user[0]);
-                } else {
-                  // Need to insert new user into db
-                  var now = new Date().toUTCString();
-                  var twitter_id = profile.id;
-
-                  client.query('INSERT INTO users (twitter_id, created) VALUES ($1, $2)', [twitter_id, now]);
-                  client.query('SELECT * FROM users WHERE twitter_id = $1', [profile.id]);
-                  return done(null, user[0]);
-                }
-
-
+        function(token, tokenSecret, profile, done) {
+            if (user.twitter) {
+                return done(null, user.twitter);
             } else {
-                // TODO: Associate Twitter account with user
+                var provider = profile.provider;
+                var providerId = profile.id;
+                query = client.query('SELECT * FROM users WHERE ' + provider + '_id = $1', [providerId]);
+                query.on('row', function(row) {
+                    // Return the found user
+                    user.twitter = row;
+                    return done(null, user.twitter);
+                });
+                query.on('end', function(result) {
+                    if (result.rowCount == 0) {
+                        // Need to insert new user into db
+                        var now = new Date().toUTCString();
+                        client.query('INSERT INTO users (' + provider + '_id, created) VALUES ($1, $2)', [providerId, now], function(err, result) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                user.twitter = result.rows[0];
+                                return done(null, user.twitter);
+                            }
+                        });
+                    }
+                });
             }
         }
     ));
