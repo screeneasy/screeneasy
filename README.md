@@ -15,11 +15,25 @@ ScreenEasy app
     "key":"foo",
     "secret":"bar"
   },
+  "notification": {
+    "sendgrid": {
+       "apiuser": "foo",
+       "apikey": "bar"
+    }
+  },
   "db": {
-    "dsn":"postgres://user:pass@host:port/schema"
+    "dsn":"postgres://user:pass@host:port/schema",
+    "mongo": "mongodb://user:pass@foo.host.com:port/collection"
   }
 }
 ```
+
+You can also download the config with:
+```
+run utils/config.py -d
+```
+
+See (utils/README.md) for details
 
 # Import Schema
 ```
