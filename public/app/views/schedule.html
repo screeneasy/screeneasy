@@ -2,6 +2,9 @@
     <p ng-repeat="error in errors">{{error}}</p>
     <div class="row">
         <div class="col-md-6">
+            <h5>
+                <a href="#interviews">See interviewed/schedules candidates</a>
+            </h5>
             <div class="candidate">
                 <h4 class="sub_headline text-muted">Candidate Information</h4>
                 <form class="form-horizontal" role="form">
@@ -44,7 +47,7 @@
                   <div class="form-group">
                     <label for="interviewer.email" class="col-lg-2 control-label">Email</label>
                     <div class="col-lg-6">
-                      <input type="text" class="form-control" id="interviewer.email" placeholder="john.smith@gmail.com" ng-model="interviewer.email" required>
+                      <input type="email" class="form-control" id="interviewer.email" placeholder="john.smith@gmail.com" ng-model="interviewer.email" required>
                     </div>
                   </div>
                   <div class="form-group">
@@ -59,8 +62,8 @@
 
         <div class="col-md-6">
             <h4 class="sub_headline text-muted">Pick a date and time</h4>
-            <input type="text" ng-model="interviewDate" placeholder="2012-08-12" />
-            <input type="text" ng-model="interviewTime" placeholder="12:30" />
+            <input type="text" ng-model="interviewDate" placeholder="2012-08-12" required/>
+            <input type="text" ng-model="interviewTime" placeholder="12:30" required/>
         </div>
 
         <div class="clearfix"></div>

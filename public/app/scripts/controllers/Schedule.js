@@ -4,6 +4,7 @@ angular.module('ScreenEasyApp')
   .controller('ScheduleCtrl', ['$scope', '$location', '$store', 'interviewResource', 'emailResource', function ($scope, $location, $store, interviewResource, emailResource) {
       $scope.scheduleInterview = function() {
           // @TODO Need to refactor this
+          // send notification email
           var candidate_profile = new emailResource();
           candidate_profile.to = $scope.candidate.email;
           candidate_profile.message = 'hello';
@@ -28,6 +29,19 @@ angular.module('ScreenEasyApp')
 
           // save the interview
           $store.set('candidate.info',$scope.candidate);
+
+          // store into db
+          var interviewInput = {
+            interviewer   : $scope.interviewer,
+            candidate     : $scope.candidate,
+            interviewDate : $scope.interviewDate + ' ' + $scope.interviewTime
+          };
+
+          var setup_interview_promise = interviewResource.save(interviewInput).$promise;
+
+          setup_interview_promise.then(function(data) {
+            console.log(data);
+          });
 
           // Generate an unique hash
 
