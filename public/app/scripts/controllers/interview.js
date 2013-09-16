@@ -42,6 +42,17 @@ angular.module('ScreenEasyApp')
             });
          }
 
+         $scope.developer.profile.own_repos = {
+            "repo": {
+                "name" : "php"
+            }
+         };
+
+
+         $scope.developer.profile.contributed_repos = ["PHP", "Python"];
+
+         $scope.developer.profile.gists = ["gists", "Python"];
+
          console.log($scope.developer);
 
          $scope.hash = $routeParams.hash;

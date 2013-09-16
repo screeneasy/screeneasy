@@ -28,6 +28,7 @@ angular.module('ScreenEasyApp')
      $scope.is_deleted = false;
 
      $scope.deleteQuestion = function(question) {
+        // @TODO invalidate cache stored in localStorage
         var delete_promise = interviewQuestionResource.delete({id:question.id});
         delete_promise.$promise.then(function(resp) {
             angular.forEach($scope.questions, function(item, idx) {

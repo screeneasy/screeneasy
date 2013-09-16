@@ -33,19 +33,21 @@
                       <tab-heading>
                           <i class="icon-code-fork"></i> Contributed Repos
                       </tab-heading>
-                      Static content
+                      <ul ng-repeat="repo in developer.profile.own_repos">
+                        <li>{{repo.name}}</li>
+                      </ul>
                   </tab>
                   <tab>
                       <tab-heading>
                           <i class="icon-code"></i> Contributed Repos
                       </tab-heading>
-                      Static content
+                      {{developer.profile.contributed_repos}}
                   </tab>
                   <tab>
                       <tab-heading>
                         <i class="icon-file"></i> Gists
                       </tab-heading>
-                      I've got an HTML heading, and a select callback. Pretty cool!
+                      {{developer.profile.gists}}
                   </tab>
                 </tabset>
           </div>
