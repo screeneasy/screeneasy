@@ -1,6 +1,4 @@
-var passport = require('passport');
-
-module.exports = function(routes, app, io) {
+module.exports = function(routes, app, passport, io) {
     app.get('/', routes.index);
 
     app.get('/auth/twitter', passport.authenticate('twitter'));

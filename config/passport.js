@@ -33,6 +33,15 @@ function findByUsername(username, fn) {
   return fn(null, null);
 }
 
+function isEmpty(map) {
+  for (var key in map) {
+    if (map.hasOwnProperty(key)) {
+      return false;
+    }
+  }
+  return true;
+}
+
 module.exports = function(passport, nconf) {
     var connectionString = process.env.DATABASE_URL || nconf.get('db:dsn');
     client = new pg.Client(connectionString);
@@ -53,13 +62,17 @@ module.exports = function(passport, nconf) {
           query = client.query('SELECT * FROM users WHERE ' + provider + '_id = $1', [providerId]);
           query.on('end', function(result) {
             if (result.rowCount == 0) {
-              // Check if other user account exists and update
-              if (user.github) {
-                client.query('UPDATE users SET ' + provider + '_id = $1 WHERE github_id = $2', [providerId, user.github.id]);
-              } else {
+              if (isEmpty(user)) {
                 // Need to insert new user into db
                 var now = new Date().toUTCString();
                 client.query('INSERT INTO users (' + provider + '_id, created) VALUES ($1, $2)', [providerId, now]);
+              } else {
+                // Check if other accounts exist and update
+                if (user.github) {
+                  client.query('UPDATE users SET ' + provider + '_id = $1 WHERE github_id = $2', [providerId, user.github.id]);
+                } else if (user.username) {
+                  client.query('UPDATE users SET ' + provider + '_id = $1 WHERE username = $2', [providerId, user.username]);
+                }
               }
             }
           });
@@ -81,13 +94,17 @@ module.exports = function(passport, nconf) {
           query = client.query('SELECT * FROM users WHERE ' + provider + '_id = $1', [providerId]);
           query.on('end', function(result) {
             if (result.rowCount == 0) {
-              // Check if other user account exists and update
-              if (user.twitter) {
-                client.query('UPDATE users SET ' + provider + '_id = $1 WHERE twitter_id = $2', [providerId, user.twitter.id]);
-              } else {
+              if (isEmpty(user)) {
                 // Need to insert new user into db
                 var now = new Date().toUTCString();
                 client.query('INSERT INTO users (' + provider + '_id, created) VALUES ($1, $2)', [providerId, now]);
+              } else {
+                // Check if other accounts exist and update
+                if (user.twitter) {
+                  client.query('UPDATE users SET ' + provider + '_id = $1 WHERE twitter_id = $2', [providerId, user.twitter.id]);
+                } else if (user.username) {
+                  client.query('UPDATE users SET ' + provider + '_id = $1 WHERE username = $2', [providerId, user.username]);
+                }
               }
             }
           });
@@ -98,20 +115,32 @@ module.exports = function(passport, nconf) {
 
     passport.use(new LocalStrategy(
       function(username, password, done) {
-        // asynchronous verification, for effect...
-        process.nextTick(function () {
-
-          // Find the user by username.  If there is no user with the given
-          // username, or the password is not correct, set the user to `false` to
-          // indicate failure and set a flash message.  Otherwise, return the
-          // authenticated `user`.
-          findByUsername(username, function(err, user) {
-            if (err) { return done(err); }
-            if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
-            if (user.password != password) { return done(null, false, { message: 'Invalid password' }); }
-            return done(null, user);
+        if (!user.username) {
+          // Search for user in user db
+          user.username = username;
+          user.password = password;
+          query = client.query('SELECT * FROM users WHERE username = $1', [username]);
+          query.on('end', function(result) {
+            if (result.rowCount == 0) {
+              return done(null, false, { message: 'Unknown user ' + username });
+            } else if (result.rows[0].password != password) {
+              return done(null, false, { message: 'Invalid password' });
+            }
           });
-        });
+        }
+        return done(null, user);
+        
+        /*
+        // Find the user by username.  If there is no user with the given
+        // username, or the password is not correct, set the user to `false` to
+        // indicate failure and set a flash message.  Otherwise, return the
+        // authenticated `user`.
+        findByUsername(username, function(err, user) {
+          if (err) { return done(err); }
+          if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
+          if (user.password != password) { return done(null, false, { message: 'Invalid password' }); }
+          return done(null, user);
+        });*/
       }
     ));
 
