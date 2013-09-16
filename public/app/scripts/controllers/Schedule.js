@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ScreenEasyApp')
-  .controller('ScheduleCtrl', ['$scope', '$location', '$store', 'interviewResource', 'emailResource', function ($scope, $location, $store, interviewResource, emailResource) {
+  .controller('ScheduleCtrl', ['$scope', '$location', 'storage', 'interviewResource', 'emailResource', function ($scope, $location, storage, interviewResource, emailResource) {
       $scope.scheduleInterview = function() {
           // @TODO Need to refactor this
           // send notification email
@@ -28,7 +28,7 @@ angular.module('ScreenEasyApp')
           });
 
           // save the interview
-          $store.set('candidate.info',$scope.candidate);
+          storage.set('candidate.info',$scope.candidate);
 
           // store into db
           var interviewInput = {
