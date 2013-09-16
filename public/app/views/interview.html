@@ -1,6 +1,8 @@
-<div ng-include="'views/header.html'"></div>
+<div ng-hide="'showRedirect'">
+    Please <a href="#schedule">set up a candidate</a>. Redirect in 10 seconds.
+</div>
 
-<div id="container">
+<div id="container" ng-show="'showRedirect'">
     <div id="video-share" class="">
         <screenshare room="{{hash}}"></screenshare>
     </div>
@@ -16,14 +18,9 @@
            <p ng-repeat="project in candidateSummary.notableProjects">{{project.name}} - {{project.description}}</p>
         </div>
 
-        <div ng-repeat="question in questions">
-           <h3>{{question.question}}</h3>
-           <textarea></textarea>
-        </div>
-
         <div ng-repeat="question in techQuestions">
-           <h3>{{question.question}}</h3>
-           <fireace  firebaseurl="https://screeneasy.firebaseIO.com/interview/questions/{{hash}}/{{question.id}}"></fireace>
+           <h3>{{question.title}}</h3>
+           <fireace firebaseurl="https://screeneasy.firebaseIO.com/interview/questions/{{hash}}/{{question.id}}"></fireace>
         </div>
         <br/>
         <input type="submit" class="btn" value="End Interview" />

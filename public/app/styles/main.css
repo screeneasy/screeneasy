@@ -33,3 +33,18 @@ body {
 .hero .sub_headline {
    margin:12px 0 24px;
 }
+
+.profile {
+   margin-bottom: 10px;
+   padding-bottom: 30px;
+   text-align: center;
+   background-color: #FFFFFF;
+}
+
+#branding_box {
+   padding-bottom:20px;
+}
+
+#branding_box a {
+   width: 225px;
+}

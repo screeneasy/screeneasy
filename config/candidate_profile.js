@@ -2,7 +2,7 @@ var github3 = require('github3');
 var profile = require('./profile.js');
 
 //Build up developer profile
-module.exports = function(app, nconf) {
+module.exports = function(app) {
     // Enforces user name
     app.get('/v1/developer/github/', function(req, res) {
         var message = {

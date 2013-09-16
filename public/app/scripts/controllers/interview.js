@@ -1,19 +1,30 @@
 'use strict';
 
 angular.module('ScreenEasyApp')
-  .controller('InterviewCtrl', ['$scope', '$routeParams', 'interviewQuestionResource', 'github', '$location',
-     function ($scope, $routeParams, interviewQuestionResource, github, $location) {
-         $scope.questions = [{id: 1, question:"how old are you?"}];
+  .controller('InterviewCtrl', ['$scope', '$routeParams', 'interviewQuestionResource', 'github', '$location', '$store', function ($scope, $routeParams, interviewQuestionResource, github, $location, $store) {
+         var user = $store.get('candidate.info');
+
+         $scope.showRedirect = false;
+
+         // Candidate info is not set. Redirect to schedule page
+         if(!user) {
+            setTimeout(function() {
+                $scope.showRedirect = true;
+                $location.path("schedule");
+            }, 1000);
+         }
 
          $scope.hash = $location.hash;
 
-         $scope.techQuestions = [{id: 2,question: "Write a function to square a number"},{id: 3, question: "write a function to be magic!"}];
+         var promise = interviewQuestionResource.query();
+
+         promise.$promise.then(function(res) {
+             $scope.techQuestions = res;
+         });
          $scope.hash = $routeParams.hash;
 
-         var userParam = 'crabasa';
-
          github.get({
-           user: userParam,
+           user: user.github_handle,
            repo: ''
          }, function(res) {
            $scope.summary = res.data;

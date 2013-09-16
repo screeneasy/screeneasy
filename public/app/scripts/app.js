@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ScreenEasyApp', ['fireace', 'ngRoute', 'ngResource','ui.bootstrap','simplewebrtc'])
+angular.module('ScreenEasyApp', ['fireace', 'ngAnimate', 'ngRoute', 'ngResource','ui.bootstrap','simplewebrtc', 'localStorage'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
@@ -18,6 +18,10 @@ angular.module('ScreenEasyApp', ['fireace', 'ngRoute', 'ngResource','ui.bootstra
       .when('/schedule', {
         templateUrl: 'views/schedule.html',
         controller: 'ScheduleCtrl'
+      })
+      .when('/interviews', {
+         templateUrl: 'views/interviews.html',
+         controller: 'InterviewsCtrl'
       })
       .when('/postmortem/:hash', {
         templateUrl: 'views/postmortem.html',
