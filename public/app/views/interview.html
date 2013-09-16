@@ -3,10 +3,6 @@
 </div>
 
 <div id="container" ng-show="'showRedirect'">
-    <div id="video-share" class="">
-        <screenshare room="{{hash}}"></screenshare>
-    </div>
-
     <div id="interview">
         <div class="profile row">
           <div class="col-xs-8 col-md-4">
@@ -30,7 +26,7 @@
                 </li>
               </ul>
           </div>
-          <div class="col-md-8">
+          <div class="col-md-6">
                 <tabset>
                   <tab>
                       <tab-heading>
@@ -51,6 +47,9 @@
                       I've got an HTML heading, and a select callback. Pretty cool!
                   </tab>
                 </tabset>
+          </div>
+          <div id="video-share" class="col-md-6">
+              <screenshare room="{{hash}}"></screenshare>
           </div>
         </div>
 

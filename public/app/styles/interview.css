@@ -6,8 +6,10 @@
 }
 
 video {
-    width: 250px;
+    width: 200px;
     height: 250px;
+    margin-top:20px;
+    padding-right:5px;
 }
 
 .interview_coding_questions {
