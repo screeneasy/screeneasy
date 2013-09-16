@@ -53,7 +53,7 @@
           </div>
         </div>
 
-        <div ng-repeat="question in techQuestions">
+        <div class="row" ng-repeat="question in techQuestions">
            <h3 class="interview_coding_questions">{{question.title}}</h3>
            <fireace firebaseurl="https://screeneasy.firebaseIO.com/interview/questions/{{hash}}/{{question.id}}"></fireace>
         </div>
