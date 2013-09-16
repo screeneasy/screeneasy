@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ScreenEasyApp')
-  .controller('InterviewCtrl', ['$scope', '$routeParams', 'interviewQuestionResource', 'github', '$location', '$store', function ($scope, $routeParams, interviewQuestionResource, github, $location, $store) {
+  .controller('InterviewCtrl', ['$scope', '$routeParams', 'interviewQuestionResource', 'githubResource', '$location', '$store', function ($scope, $routeParams, interviewQuestionResource, githubResource, $location, $store) {
          var user = $store.get('candidate.info');
 
          $scope.showRedirect = false;
@@ -16,26 +16,35 @@ angular.module('ScreenEasyApp')
 
          $scope.hash = $location.hash;
 
-         var promise = interviewQuestionResource.query();
+         $scope.developer = {};
 
-         promise.$promise.then(function(res) {
-             $scope.techQuestions = res;
-         });
+         // Do we have a cache hit?
+         if ($store.get('developer.profile')) {
+            $scope.developer.profile = $store.get('developer.profile');
+            console.log($scope.developer.profile);
+         } else {
+            var profile_promise = githubResource.get({name:user.github_handle}).$promise;
+
+            profile_promise.then(function(resp) {
+               $scope.developer.profile = resp.basic;
+               $store.set('developer.profile', $scope.developer.profile);
+            });
+         }
+
+         if ($store.get('interview.questions')) {
+            $scope.techQuestions = $store.get('interview.questions');
+         } else {
+            var promise = interviewQuestionResource.query();
+
+            promise.$promise.then(function(res) {
+                $scope.techQuestions = res;
+                $store.set('interview.questions', $scope.techQuestions);
+            });
+         }
+
+         console.log($scope.developer);
+
          $scope.hash = $routeParams.hash;
-
-         github.get({
-           user: user.github_handle,
-           repo: ''
-         }, function(res) {
-           $scope.summary = res.data;
-         });
-
-         $scope.candidateSummary = {
-            organizations: [{name:'CascadiaJS'},{name:'Twilio'}],
-            proficientLanguage: 'JavaScript',
-            notableProjects: [{name:'JQuery', description: 'Front-end JavaScript framework'},
-                              {name: 'CoffeeScript', description: 'Dialect of JavaScript'}],
-         };
 
          $scope.endInterview = function() {
             $location.path('/postmortem/' + $scope.hash);
