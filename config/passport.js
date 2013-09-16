@@ -40,38 +40,32 @@ module.exports = function(passport, nconf) {
     var user = {};
 
     passport.use(new TwitterStrategy({
-            consumerKey: nconf.get('twitter:key'),
-            consumerSecret: nconf.get('twitter:secret'),
-            callbackURL: nconf.get('twitter:callback_url')
-        },
-        function(token, tokenSecret, profile, done) {
-            if (user.twitter) {
-                return done(null, user.twitter);
-            } else {
-                var provider = profile.provider;
-                var providerId = profile.id;
-                query = client.query('SELECT * FROM users WHERE ' + provider + '_id = $1', [providerId]);
-                query.on('row', function(row) {
-                    // Return the found user
-                    user.twitter = row;
-                    return done(null, user.twitter);
-                });
-                query.on('end', function(result) {
-                    if (result.rowCount == 0) {
-                        // Need to insert new user into db
-                        var now = new Date().toUTCString();
-                        client.query('INSERT INTO users (' + provider + '_id, created) VALUES ($1, $2)', [providerId, now], function(err, result) {
-                            if (err) {
-                                console.log(err);
-                            } else {
-                                user.twitter = result.rows[0];
-                                return done(null, user.twitter);
-                            }
-                        });
-                    }
-                });
+        consumerKey: nconf.get('twitter:key'),
+        consumerSecret: nconf.get('twitter:secret'),
+        callbackURL: nconf.get('twitter:callback_url')
+      },
+      function(token, tokenSecret, profile, done) {
+        if (!user.twitter) {
+          user.twitter = profile;
+          var provider = profile.provider;
+          var providerId = profile.id;
+          // TODO: update row if user already exists
+          query = client.query('SELECT * FROM users WHERE ' + provider + '_id = $1', [providerId]);
+          query.on('end', function(result) {
+            if (result.rowCount == 0) {
+              // Check if other user account exists and update
+              if (user.github) {
+                client.query('UPDATE users SET ' + provider + '_id = $1 WHERE github_id = $2', [providerId, user.github.id]);
+              } else {
+                // Need to insert new user into db
+                var now = new Date().toUTCString();
+                client.query('INSERT INTO users (' + provider + '_id, created) VALUES ($1, $2)', [providerId, now]);
+              }
             }
+          });
         }
+        return done(null, user.twitter);
+      }
     ));
 
     passport.use(new GitHubStrategy({
@@ -80,10 +74,25 @@ module.exports = function(passport, nconf) {
         callbackURL: nconf.get('github:callback_url')
       },
       function(accessToken, refreshToken, profile, done) {
-          // asynchronous verification
-          process.nextTick(function () {
-            return done(null, profile);
+        if (!user.github) {
+          user.github = profile;
+          var provider = profile.provider;
+          var providerId = profile.id;
+          query = client.query('SELECT * FROM users WHERE ' + provider + '_id = $1', [providerId]);
+          query.on('end', function(result) {
+            if (result.rowCount == 0) {
+              // Check if other user account exists and update
+              if (user.twitter) {
+                client.query('UPDATE users SET ' + provider + '_id = $1 WHERE twitter_id = $2', [providerId, user.twitter.id]);
+              } else {
+                // Need to insert new user into db
+                var now = new Date().toUTCString();
+                client.query('INSERT INTO users (' + provider + '_id, created) VALUES ($1, $2)', [providerId, now]);
+              }
+            }
           });
+        }
+        return done(null, user.github);
       }
     ));
 
