@@ -9,3 +9,7 @@ video {
     width: 250px;
     height: 250px;
 }
+
+.interview_coding_questions {
+    text-transform:capitalize;
+}

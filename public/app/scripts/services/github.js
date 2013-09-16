@@ -1,21 +1,10 @@
 'use strict';
 
 angular.module('ScreenEasyApp')
-  .factory('github', ['$resource', function ($resource) {
-    var github = $resource(
-        'https://api.github.com/:query/:user/:repo/:spec', {
-          'query': 'users',
-          'user': 'erkobridee',
-          'repo': 'repos',
-          'spec': '',
-          'callback': 'JSON_CALLBACK',
-          'per_page': 100
-        }, {
-          'get': {
-              'method': 'JSONP'
-          }
-        }
-      );
-
-    return github;
+  .factory('githubResource', ['$resource', function ($resource) {
+    return $resource(
+         "http://127.0.0.1::port/v1/developer/:name",
+         {port: '3000', name: "@name"},
+         { "update": {method:"PUT"} }
+    );
   }]);
