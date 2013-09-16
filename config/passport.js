@@ -58,7 +58,6 @@ module.exports = function(passport, nconf) {
           user.twitter = profile;
           var provider = profile.provider;
           var providerId = profile.id;
-          // TODO: update row if user already exists
           query = client.query('SELECT * FROM users WHERE ' + provider + '_id = $1', [providerId]);
           query.on('end', function(result) {
             if (result.rowCount == 0) {
@@ -117,14 +116,17 @@ module.exports = function(passport, nconf) {
       function(username, password, done) {
         if (!user.username) {
           // Search for user in user db
-          user.username = username;
-          user.password = password;
           query = client.query('SELECT * FROM users WHERE username = $1', [username]);
           query.on('end', function(result) {
             if (result.rowCount == 0) {
               return done(null, false, { message: 'Unknown user ' + username });
-            } else if (result.rows[0].password != password) {
-              return done(null, false, { message: 'Invalid password' });
+            } else (
+              var foundUser = result.rows[0];
+              if (foundUser.password == password) {
+                return done(null, foundUser);
+              } else {
+                return done(null, false, { message: 'Invalid password' });
+              }
             }
           });
         }
