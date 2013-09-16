@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('ScreenEasyApp')
-  .controller('InterviewCtrl', ['$scope', '$routeParams', 'interviewQuestionResource', 'github', '$location', '$store', function ($scope, $routeParams, interviewQuestionResource, github, $location, $store) {
-         var user = $store.get('candidate.info');
+  .controller('InterviewCtrl', ['$scope', '$routeParams', 'interviewQuestionResource', 'github', '$location', 'storage', function ($scope, $routeParams, interviewQuestionResource, github, $location, storage) {
+         var user = storage.get('candidate.info');
 
          $scope.showRedirect = false;
 

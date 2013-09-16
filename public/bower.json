@@ -2,7 +2,7 @@
   "name": "public",
   "version": "0.0.0",
   "dependencies": {
-    "Angular-localStorage": "0.1.5",
+    "Angular-localStorage": "0.1.7",
     "ace": "1.1.1",
     "angular": "1.2.0-rc.2",
     "angular-animate": "1.2.0-rc.2",
@@ -25,6 +25,7 @@
     "angular-scenario": "~1.0.8"
   },
   "resolutions": {
-    "angular": "1.2.0-rc.2"
+    "angular": "1.2.0-rc.2",
+    "angular-cookies": "~1.2.0-rc.2"
   }
 }

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ScreenEasyApp', ['fireace', 'ngAnimate', 'ngRoute', 'ngResource','ui.bootstrap','simplewebrtc', 'localStorage'])
+angular.module('ScreenEasyApp', ['fireace', 'ngAnimate', 'ngRoute', 'ngResource','ui.bootstrap','simplewebrtc', 'angularLocalStorage'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
