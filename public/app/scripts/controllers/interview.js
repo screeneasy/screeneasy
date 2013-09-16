@@ -21,9 +21,8 @@ angular.module('ScreenEasyApp')
          // Do we have a cache hit?
          if (storage.get('developer.profile')) {
             $scope.developer.profile = storage.get('developer.profile');
-            console.log($scope.developer.profile);
          } else {
-            var profile_promise = githubResource.get({name:user.github_handle}).$promise;
+            var profile_promise = githubResource.get({name:user.github_handle, type:'basic'}).$promise;
 
             profile_promise.then(function(resp) {
                $scope.developer.profile = resp.basic;
@@ -42,20 +41,19 @@ angular.module('ScreenEasyApp')
             });
          }
 
-         $scope.developer.profile.own_repos = {
-            "repo": {
-                "name" : "php"
-            }
-         };
+         // Pull user gists
+         var gist_promise = githubResource.get({name:user.github_handle, type:'gists'}).$promise;
 
+         gist_promise.then(function(data) {
+            $scope.developer.profile.gists = data;
+         });
 
-         $scope.developer.profile.contributed_repos = ["PHP", "Python"];
+         // Pull user repos
+         var repos_promise = githubResource.get({name:user.github_handle, type:'repos'}).$promise;
 
-         $scope.developer.profile.gists = ["gists", "Python"];
-
-         console.log($scope.developer);
-
-         $scope.hash = $routeParams.hash;
+         repos_promise.then(function(data) {
+            $scope.developer.profile.own_repos = data;
+         });
 
          $scope.endInterview = function() {
             $location.path('/postmortem/' + $scope.hash);

@@ -9,7 +9,8 @@
   "dependencies": {
     "ejs": "0.8.4",
     "express" : "3.3.7",
-    "github3":"1.2.0",
+    "github": "0.1.10",
+    "mongoose": "3.6.19",
     "nconf" : "0.6.7",
     "nodemon" : "0.7.10",
     "passport" : "0.1.17",
@@ -19,7 +20,6 @@
     "pg" : "2.6.2",
     "sendgrid": "0.3.0-rc.1.7",
     "sequelize": "2.0.0-beta.0",
-    "mongoose": "3.6.19",
     "socket.io" : "0.9.16"
   }
 }

@@ -1,8 +1,14 @@
-var github3 = require('github3');
-var profile = require('./profile.js');
+var GitHubApi = require("github");
 
 //Build up developer profile
 module.exports = function(app) {
+    var github = new GitHubApi({
+        // required
+        version: "3.0.0",
+        // optional
+        timeout: 5000
+    });
+
     // Enforces user name
     app.get('/v1/developer/', function(req, res) {
         var message = {
@@ -16,21 +22,47 @@ module.exports = function(app) {
         res.json(message);
     });
 
-    app.options('/v1/developer/:name', function(req,res) {
+    app.options('/v1/developer/:name/gists', function(req,res) {
        res.send(200);
     });
 
-    app.get('/v1/developer/:user', function(req, res) {
-      var github_handle = req.params.user;
-      var github_profile = {};
-
-      // - store a local copy
-      github3.getUser(github_handle, function(error, user) {
-        github_profile.basic = user;
-        res.json(github_profile);
-      });
-
+    app.get('/v1/developer/:user/gists', function(req, res) {
+       var github_handle = req.params.user;
+       github.gists.getFromUser({
+           user: github_handle
+       }, function(err, data) {
+           res.json(data);
+       });
     });
 
-    // Provide an endpoint to search by email address
+    app.options('/v1/developer/:name/basic', function(req,res) {
+       res.send(200);
+    });
+
+    app.get('/v1/developer/:user/basic', function(req, res) {
+       var github_handle = req.params.user;
+       github.user.getFrom({
+           user: github_handle
+       }, function(err, data) {
+           res.json(data);
+       });
+    });
+
+    app.options('/v1/developer/:name/repos', function(req,res) {
+       res.send(200);
+    });
+
+    app.get('/v1/developer/:user/repos', function(req, res) {
+       // @TODO Re-structure return data and return
+       // {
+       //    "contributed" : {},
+       //    "own": {}
+       // }
+       var github_handle = req.params.user;
+       github.repos.getFromUser({
+           user: github_handle
+       }, function(err, data) {
+           res.json(data);
+       });
+    });
 };
