@@ -45,14 +45,15 @@ angular.module('ScreenEasyApp')
          var gist_promise = githubResource.get({name:user.github_handle, type:'gists'}).$promise;
 
          gist_promise.then(function(data) {
-            $scope.developer.profile.gists = data;
+            $scope.developer.profile.gists = data.gists;
          });
 
          // Pull user repos
          var repos_promise = githubResource.get({name:user.github_handle, type:'repos'}).$promise;
 
          repos_promise.then(function(data) {
-            $scope.developer.profile.own_repos = data;
+            $scope.developer.profile.own_repos = data.own_repos;
+            $scope.developer.profile.contributed_repos = data.contributed_repos;
          });
 
          $scope.endInterview = function() {

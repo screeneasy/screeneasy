@@ -1,6 +1,8 @@
 var GitHubApi = require("github");
 
 //Build up developer profile
+// @TODO cache result with redis to avoid necessary hit
+// cache key should be built base on timestamp, invalidate every day
 module.exports = function(app) {
     var github = new GitHubApi({
         // required
@@ -31,7 +33,14 @@ module.exports = function(app) {
        github.gists.getFromUser({
            user: github_handle
        }, function(err, data) {
-           res.json(data);
+           gists_result = {}
+           gists = [];
+           data.forEach(function(gist, idx) {
+               delete gist.user;
+               gists.push(gist);
+           });
+           gists_result.gists = gists;
+           res.json(gists_result);
        });
     });
 
@@ -53,16 +62,23 @@ module.exports = function(app) {
     });
 
     app.get('/v1/developer/:user/repos', function(req, res) {
-       // @TODO Re-structure return data and return
-       // {
-       //    "contributed" : {},
-       //    "own": {}
-       // }
        var github_handle = req.params.user;
+       var repos = {}
        github.repos.getFromUser({
            user: github_handle
        }, function(err, data) {
-           res.json(data);
+           repos.own_repos = [];
+           repos.contributed_repos = [];
+
+           data.forEach(function(repo, idx) {
+               if(repo.fork == true) {
+                  repos.contributed_repos.push(repo);
+               } else {
+                  repos.own_repos.push(repo);
+               }
+           });
+
+           res.json(repos);
        });
     });
 };
