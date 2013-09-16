@@ -50,10 +50,12 @@ module.exports = function(app) {
 
     app.get('/v1/developer/:user/basic', function(req, res) {
        var github_handle = req.params.user;
+       var result = {};
        github.user.getFrom({
            user: github_handle
        }, function(err, data) {
-           res.json(data);
+           result.basic = data;
+           res.json(result);
        });
     });
 

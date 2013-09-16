@@ -7,23 +7,23 @@
         <div class="profile row">
           <div class="col-md-3">
               <span class="col-xs-6">
-                  <h4>{{developer.profile.name}}</h4>
-                  <p>{{developer.profile.location}}</p>
+                  <h4>{{developer.profile.basic.name}}</h4>
+                  <p>{{developer.profile.basic.location}}</p>
               </span>
-              <img ng-src="{{developer.profile.avatar_url}}" class="img-thumbnail" />
+              <img ng-src="{{developer.profile.basic.avatar_url}}" class="img-thumbnail" />
               <p/>
               <ul class="list-group">
                 <li class="list-group-item">
-                Followers <span class="badge">{{developer.profile.followers}}</span>
+                Followers <span class="badge">{{developer.profile.basic.followers}}</span>
                 </li>
                 <li class="list-group-item">
-                Following <span class="badge">{{developer.profile.following}}</span>
+                Following <span class="badge">{{developer.profile.basic.following}}</span>
                 </li>
                 <li class="list-group-item">
-                Gists <span class="badge">{{developer.profile.public_gists}}</span>
+                Gists <span class="badge">{{developer.profile.basic.public_gists}}</span>
                 </li>
                 <li class="list-group-item">
-                Repos <span class="badge">{{developer.profile.public_repos}}</span>
+                Repos <span class="badge">{{developer.profile.basic.public_repos}}</span>
                 </li>
               </ul>
           </div>

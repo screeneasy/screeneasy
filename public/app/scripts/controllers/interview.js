@@ -17,6 +17,7 @@ angular.module('ScreenEasyApp')
          $scope.hash = $location.hash;
 
          $scope.developer = {};
+         $scope.developer.profile = {};
 
          // Do we have a cache hit?
          if (storage.get('developer.profile')) {
@@ -25,8 +26,8 @@ angular.module('ScreenEasyApp')
             var profile_promise = githubResource.get({name:user.github_handle, type:'basic'}).$promise;
 
             profile_promise.then(function(resp) {
-               $scope.developer.profile = resp.basic;
-               storage.set('developer.profile', $scope.developer.profile);
+               $scope.developer.profile.basic = resp.basic;
+               storage.set('developer.profile', $scope.developer.profile.basic);
             });
          }
 
