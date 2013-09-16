@@ -9,7 +9,7 @@
 
     <div id="interview">
         <div class="profile row">
-          <div class="col-xs-8 col-md-6">
+          <div class="col-xs-8 col-md-4">
               <span class="col-xs-6">
                   <h4>{{developer.profile.name}}</h4>
                   <p>{{developer.profile.location}}</p>
@@ -30,8 +30,27 @@
                 </li>
               </ul>
           </div>
-          <div class=col-md-6">
-                hello world
+          <div class="col-md-8">
+                <tabset>
+                  <tab>
+                      <tab-heading>
+                          <i class="icon-code-fork"></i> Contributed Repos
+                      </tab-heading>
+                      Static content
+                  </tab>
+                  <tab>
+                      <tab-heading>
+                          <i class="icon-code"></i> Contributed Repos
+                      </tab-heading>
+                      Static content
+                  </tab>
+                  <tab>
+                      <tab-heading>
+                        <i class="icon-file"></i> Gists
+                      </tab-heading>
+                      I've got an HTML heading, and a select callback. Pretty cool!
+                  </tab>
+                </tabset>
           </div>
         </div>
 
