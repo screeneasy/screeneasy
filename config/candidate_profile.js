@@ -4,7 +4,7 @@ var profile = require('./profile.js');
 //Build up developer profile
 module.exports = function(app) {
     // Enforces user name
-    app.get('/v1/developer/github/', function(req, res) {
+    app.get('/v1/developer/', function(req, res) {
         var message = {
             'error' : {
                 'message' : 'username is required',
@@ -16,21 +16,18 @@ module.exports = function(app) {
         res.json(message);
     });
 
-    app.get('/v1/developer/github/:user', function(req, res) {
+    app.options('/v1/developer/:name', function(req,res) {
+       res.send(200);
+    });
 
+    app.get('/v1/developer/:user', function(req, res) {
       var github_handle = req.params.user;
       var github_profile = {};
-      github_profile.social = {};
 
-      // @TODO
       // - store a local copy
       github3.getUser(github_handle, function(error, user) {
         github_profile.basic = user;
-
-        github3.getUserRepos(github_handle, function(error, repos) {
-          github_profile.social.github = repos;
-          res.json(github_profile);
-        });
+        res.json(github_profile);
       });
 
     });

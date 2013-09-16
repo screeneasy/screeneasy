@@ -8,14 +8,31 @@
     </div>
 
     <div id="interview">
-        <div id="candidate-summary">
-           <img ng-src="{{summary.avatar_url}}" />
-           <h4>{{summary.name}}</h4>
-           <p>Organizations:</p>
-           <p><span ng-repeat="org in candidateSummary.organizations">{{org.name}} </span></p>
-           <p>Proficient Language:</p><span>{{candidateSummary.proficientLanguage}}</span>
-           <p>Notable Projects</p>
-           <p ng-repeat="project in candidateSummary.notableProjects">{{project.name}} - {{project.description}}</p>
+        <div class="profile row">
+          <div class="col-xs-8 col-md-6">
+              <span class="col-xs-6">
+                  <h4>{{developer.profile.name}}</h4>
+                  <p>{{developer.profile.location}}</p>
+              </span>
+              <img ng-src="{{developer.profile.avatar_url}}" class="img-thumbnail" />
+              <ul class="list-group">
+                <li class="list-group-item">
+                Followers <span class="badge">{{developer.profile.followers}}</span>
+                </li>
+                <li class="list-group-item">
+                Following <span class="badge">{{developer.profile.following}}</span>
+                </li>
+                <li class="list-group-item">
+                Gists <span class="badge">{{developer.profile.public_gists}}</span>
+                </li>
+                <li class="list-group-item">
+                Repos <span class="badge">{{developer.profile.public_repos}}</span>
+                </li>
+              </ul>
+          </div>
+          <div class=col-md-6">
+                hello world
+          </div>
         </div>
 
         <div ng-repeat="question in techQuestions">
