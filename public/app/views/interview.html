@@ -33,21 +33,25 @@
                       <tab-heading>
                           <i class="icon-code-fork"></i> Contributed Repos
                       </tab-heading>
-                      <ul ng-repeat="repo in developer.profile.own_repos">
-                        <li>{{repo.name}}</li>
+                      <ul ng-repeat="repo in developer.profile.contributed_repos">
+                        <li>{{repo.name}} - {{repo.description}}</li>
                       </ul>
                   </tab>
                   <tab>
                       <tab-heading>
                           <i class="icon-code"></i> Contributed Repos
                       </tab-heading>
-                      {{developer.profile.contributed_repos}}
+                      <ul ng-repeat="repo in developer.profile.own_repos">
+                        <li>{{repo.name}} - {{repo.description}}</li>
+                      </ul>
                   </tab>
                   <tab>
                       <tab-heading>
                         <i class="icon-file"></i> Gists
                       </tab-heading>
-                      {{developer.profile.gists}}
+                      <ul ng-repeat="gist in developer.profile.gists">
+                        <li>{{gist.description}} ({{gist.html_url}})</li>
+                      </ul>
                   </tab>
                 </tabset>
           </div>
