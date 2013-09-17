@@ -7,11 +7,21 @@ angular.module('ScreenEasyApp')
       $scope.interviewTime = date;
 
       $scope.scheduleInterview = function() {
+          // store into db
+          var interviewInput = {
+            interviewer   : $scope.interviewer,
+            candidate     : $scope.candidate,
+            // @FIXME interviewTime returns a DateTime string instead of mm::ss
+            //interviewDate : $scope.interviewDate + ' ' + $scope.interviewTime,
+            interviewDate : $scope.interviewDate,
+            hash: md5(JSON.stringify([$scope.interviewer,$scope.candidate,$scope.interviewDate]))
+          };
+
           // @TODO Need to refactor this
           // send notification email
           var candidate_profile = new emailResource();
           candidate_profile.to = $scope.candidate.email;
-          candidate_profile.message = 'hello';
+          candidate_profile.message = 'Interview link' + interviewInput.hash;
 
           var interviewer_profile = new emailResource();
           interviewer_profile.to = $scope.candidate.email;
@@ -33,16 +43,6 @@ angular.module('ScreenEasyApp')
 
           // save the interview
           storage.set('candidate.info',$scope.candidate);
-
-          // store into db
-          var interviewInput = {
-            interviewer   : $scope.interviewer,
-            candidate     : $scope.candidate,
-            // @FIXME interviewTime returns a DateTime string instead of mm::ss
-            //interviewDate : $scope.interviewDate + ' ' + $scope.interviewTime,
-            interviewDate : $scope.interviewDate,
-            hash: md5(JSON.stringify([$scope.interviewer,$scope.candidate,$scope.interviewDate]))
-          };
 
           var setup_interview_promise = interviewResource.save(interviewInput).$promise;
 
