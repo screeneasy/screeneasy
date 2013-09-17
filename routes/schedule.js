@@ -12,7 +12,8 @@ module.exports = function(app, nconf) {
               candidate: {
                name: String,
                email: String,
-               phone: String
+               phone: String,
+               github_handle: String
               },
               interviewDate: Date,
               hash: String
@@ -36,14 +37,29 @@ module.exports = function(app, nconf) {
       });
 
    });
+   app.get('/interview/', function(req,res) {
 
-   app.get('/interview', function(req,res) {
       Interview.find({},function(err, data) {
          if (err) {
             res.send({status: 'error', message: 'failed to find interviews'});
          }
          else {
             res.send(data);
+         }
+      })
+   });
+
+   app.get('/interview/:hash', function(req,res) {
+      var searchParam = req.params.hash ? {'hash':req.params.hash} : {};
+
+      Interview.find(searchParam,function(err, data) {
+         if (err) {
+            res.send({status: 'error', message: 'failed to find interviews'});
+         }
+         else {
+            var result = {};
+            result.data = data;
+            res.send(result);
          }
       })
    });
