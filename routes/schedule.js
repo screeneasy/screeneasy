@@ -14,7 +14,8 @@ module.exports = function(app, nconf) {
                email: String,
                phone: String
               },
-              interviewDate: Date
+              interviewDate: Date,
+              hash: String
             });
 
    mongoose.connect(connectionString);
