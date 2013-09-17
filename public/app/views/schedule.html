@@ -62,8 +62,12 @@
 
         <div class="col-md-6">
             <h4 class="sub_headline text-muted">Pick a date and time</h4>
-            <input type="text" ng-model="interviewDate" placeholder="2012-08-12" required/>
-            <input type="text" ng-model="interviewTime" placeholder="12:30" required/>
+            <div class="well well-small pull-left" ng-model="interviewDate">
+                <datepicker show-weeks="false"></datepicker>
+            </div>
+            <div ng-model="interviewTime" class="well well-small" style="display:inline-block;">
+               <timepicker hour-step="1" minute-step="15" show-meridian="true"></timepicker>
+            </div>
         </div>
 
         <div class="clearfix"></div>
