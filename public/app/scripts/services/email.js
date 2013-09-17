@@ -2,9 +2,13 @@
 
 angular.module('ScreenEasyApp')
   .factory('emailResource', ['$resource', function($resource) {
+    var host_origin = document.location.protocol + '//' + document.location.host;
+
     return $resource(
-         "http://127.0.0.1::port/email",
-         {port: '3000'},
+         ":protocol\/\/:host::port/email",
+         { protocol: document.location.protocol,
+           host: document.location.host,
+           port: '3000'},
          { "update": {method:"PUT"} }
     );
   }]);
