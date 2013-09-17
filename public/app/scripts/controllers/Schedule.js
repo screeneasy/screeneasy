@@ -17,13 +17,6 @@ angular.module('ScreenEasyApp')
           interviewer_profile.to = $scope.candidate.email;
           interviewer_profile.message = 'hello';
 
-          // store into db
-          var interviewInput = {
-            interviewer   : $scope.interviewer,
-            candidate     : $scope.candidate,
-            interviewDate : $scope.interviewDate + ' ' + $scope.interviewTime
-          };
-
           // send an email to both candidates
           var email_promise = candidate_profile.$save();
 
@@ -45,7 +38,9 @@ angular.module('ScreenEasyApp')
           var interviewInput = {
             interviewer   : $scope.interviewer,
             candidate     : $scope.candidate,
-            interviewDate : $scope.interviewDate + ' ' + $scope.interviewTime,
+            // @FIXME interviewTime returns a DateTime string instead of mm::ss
+            //interviewDate : $scope.interviewDate + ' ' + $scope.interviewTime,
+            interviewDate : $scope.interviewDate,
             hash: md5(JSON.stringify([$scope.interviewer,$scope.candidate,$scope.interviewDate]))
           };
 
