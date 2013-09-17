@@ -2,8 +2,6 @@
 
 angular.module('ScreenEasyApp')
   .factory('interviewQuestionResource', ['$resource', function ($resource) {
-    var host_origin = document.location.protocol + '//' + document.location.host;
-
     return $resource(
          ":protocol\/\/:host::port/v1/interview/question/:id",
          { protocol: document.location.protocol,
