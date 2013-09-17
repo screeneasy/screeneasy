@@ -34,9 +34,9 @@ angular.module('ScreenEasyApp')
           var interviewInput = {
             interviewer   : $scope.interviewer,
             candidate     : $scope.candidate,
-            interviewDate : $scope.interviewDate + ' ' + $scope.interviewTime
+            interviewDate : $scope.interviewDate + ' ' + $scope.interviewTime,
+            hash: md5(JSON.stringify([$scope.interviewer,$scope.candidate,$scope.interviewDate]))
           };
-
           var setup_interview_promise = interviewResource.save(interviewInput).$promise;
 
           setup_interview_promise.then(function(data) {

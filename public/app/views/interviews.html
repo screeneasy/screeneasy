@@ -11,10 +11,10 @@
         <div class="profile">
           <span class="">
               <h4>
-                Candidate: <a href="#">{{interview.candidate.name}} ({{interview.candidate.email}})</a>
+                 <a href="#/interview/{{interview.hash}}">{{interview.candidate.name}} ({{interview.candidate.email}})</a>
               </h4>
               <p>Conducted by: {{interview.interviewer.name}} ({{interview.interviewer.email}})</p>
-              <p>{{interview.interviewDate}}</p>
+              <p>{{interview.interviewDate | date: 'MMM d yyyy H:m a'}}</p>
           </span>
         </div>
     </div>
