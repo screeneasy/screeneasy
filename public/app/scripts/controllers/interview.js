@@ -20,6 +20,7 @@ angular.module('ScreenEasyApp')
              var profile_promise = githubResource.get({name:user.github_handle, type:'basic'}).$promise;
 
              profile_promise.then(function(resp) {
+                $scope.developer.profile = {};
                 $scope.developer.profile.basic = resp.basic;
              });
 
