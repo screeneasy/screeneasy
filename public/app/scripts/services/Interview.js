@@ -3,10 +3,8 @@
 angular.module('ScreenEasyApp')
   .factory('interviewResource', ['$resource', function($resource) {
     return $resource(
-         ":protocol\/\/:host/interview/:hash",
-         { protocol: document.location.protocol,
-           host: document.location.host
-         },
+         "http://screeneasy-api.herokuapp.com/interview/:hash",
+         {},
          { "query": {method: "GET"}, hash: '@hash',
            "post": {method:"POST"}
          }

@@ -12,6 +12,7 @@ angular.module('ScreenEasyApp')
 
          query_promise.then(function(data) {
              var user = data.data[0].candidate;
+             console.log(user);
 
              $scope.developer = {};
              $scope.developer.profile = {};

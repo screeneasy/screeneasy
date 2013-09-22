@@ -3,10 +3,8 @@
 angular.module('ScreenEasyApp')
   .factory('interviewQuestionResource', ['$resource', function ($resource) {
     return $resource(
-         ":protocol\/\/:host/v1/interview/question/:id",
-         { protocol: document.location.protocol,
-           host: document.location.host,
-           id: "@Id" },
+         "http://screeneasy-api.herokuapp.com/v1/interview/question/:id",
+         { id: "@Id" },
          { "update": {method:"PUT"} }
     );
   }]);
