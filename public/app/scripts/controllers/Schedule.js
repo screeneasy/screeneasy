@@ -17,6 +17,8 @@ angular.module('ScreenEasyApp')
             hash: md5(JSON.stringify([$scope.interviewer,$scope.candidate,$scope.interviewDate]))
           };
 
+          $scope.interview_url = $location.absUrl().replace('schedule', '') + 'interview/' + interviewInput.hash;
+
           // @TODO Need to refactor this
           // send notification email
           var candidate_profile = new emailResource();
