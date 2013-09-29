@@ -69,8 +69,8 @@
                <timepicker hour-step="1" minute-step="15" show-meridian="true" bs-timepicker></timepicker>
             </div>
 
-            <div class="pull-left">
-                <p>You can now use this interview url:</p>
+            <div class="pull-left" ng-init="show_interview_url=false">
+                <p ng-hide="show_interview_url">You can now use this interview url:</p>
                 <a href="{{interview_url}}">{{interview_url}}</a>
             </div>
         </div>
