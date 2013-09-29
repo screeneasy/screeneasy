@@ -17,6 +17,7 @@ angular.module('ScreenEasyApp')
             hash: md5(JSON.stringify([$scope.interviewer,$scope.candidate,$scope.interviewDate]))
           };
 
+          $scope.show_interview_url != $scope.show_interview_url
           $scope.interview_url = $location.absUrl().replace('schedule', '') + 'interview/' + interviewInput.hash;
 
           // @TODO Need to refactor this
