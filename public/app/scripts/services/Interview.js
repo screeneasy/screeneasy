@@ -3,7 +3,7 @@
 angular.module('ScreenEasyApp')
   .factory('interviewResource', ['$resource', function($resource) {
     return $resource(
-         "http://localhost:3000/interview",
+         "http://screeneasy-api.herokuapp.com/interview",
          {},
          { "query": {method: "GET"}
          }
