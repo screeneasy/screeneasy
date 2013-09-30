@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('ScreenEasyApp', ['fireace', 'ngAnimate', 'ngRoute', 'ngResource','ui.bootstrap','simplewebrtc', 'angularLocalStorage'])
+  .constant('API_ENDPOINT', 'http://screeneasy-api.herokuapp.com')
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {

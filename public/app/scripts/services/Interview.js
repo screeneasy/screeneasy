@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('ScreenEasyApp')
-  .factory('interviewResource', ['$resource', function($resource) {
+  .factory('interviewResource', ['$resource', 'API_ENDPOINT', function($resource, API_ENDPOINT) {
     return $resource(
-         "http://screeneasy-api.herokuapp.com/interview",
+         API_ENDPOINT + "/interview",
          {},
          { "query": {method: "GET"}
          }

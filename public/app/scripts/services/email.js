@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('ScreenEasyApp')
-  .factory('emailResource', ['$resource', function($resource) {
+  .factory('emailResource', ['$resource', 'API_ENDPOINT', function($resourcem, API_ENDPOINT) {
     return $resource(
-         "http://screeneasy-api.herokuapp.com/email",
+         API_ENDPOINT + "/email",
          {},
          { "update": {method:"PUT"} }
     );

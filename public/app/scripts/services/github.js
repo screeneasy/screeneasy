@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('ScreenEasyApp')
-  .factory('githubResource', ['$resource', function ($resource) {
+  .factory('githubResource', ['$resource', 'API_ENDPOINT', function ($resource, API_ENDPOINT) {
     return $resource(
-         "http://screeneasy-api.herokuapp.com/v1/developer/:name/:type",
+         API_ENDPOINT + "/v1/developer/:name/:type",
          { name: "@name",
            type: "@type"},
          { "update": {method:"PUT"} }
