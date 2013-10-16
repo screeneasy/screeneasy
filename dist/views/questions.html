@@ -1,0 +1,51 @@
+<div class="text-muted">
+  <a href="http://developers.screeneasy.me/api/v1/interview/questions">You can create or retrieve questions with our RESTful API</a>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h4 class="sub_headline text-muted">Create a new interview question</h4>
+            <form class="form-horizontal" role="form">
+              <div class="form-group">
+                <label for="question.title" class="col-lg-2 control-label">Title</label>
+                <div class="col-lg-10">
+                  <input type="text" class="form-control" id="question.title" placeholder="how to reverse a string" ng-model="question.title" required="">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="question.body" class="col-lg-2 control-label">Question</label>
+                <div class="col-lg-12">
+                  <textarea class="form-control" id="question.body" rows="5" placeholder="given a string like abc, write a function that outputs it to cba" ng-model="question.body">
+                  </textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="question.tags" class="col-lg-2 control-label">Tags</label>
+                <div class="col-lg-10">
+                  <input type="textarea" class="form-control" id="question.tags" placeholder="algorithm, database" ng-model="question.tags">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-lg-offset-8 col-lg-10">
+                  <button type="submit" class="btn btn-default" ng-click="addQuestion();">Add</button>
+                  <button type="reset" class="btn btn-link">Cancel
+                </button></div>
+              </div>
+            </form>
+        </div>
+
+        <div class="col-md-6">
+            <h4 class="sub_headline text-muted">Current questions</h4>
+            <div class="form-group">
+                <input class="col-lg-8" type="text" ng-model="searchQuestions" placeholder="Search questions">
+                <button type="submit" class="col-lg-3 small-padding btn">Search</button>
+            </div>
+
+            <ul class="row list-unstyled">
+              <li class="col-sm-9" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}" ng-repeat="question in questions | interviewQuestions:searchQuestions">
+                  <interview-question question="question"></interview-question>
+              </li>
+            </ul>
+        </div>
+    </div>
+</div>

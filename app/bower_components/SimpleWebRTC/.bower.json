@@ -1,0 +1,13 @@
+{
+  "name": "SimpleWebRTC",
+  "homepage": "https://github.com/HenrikJoreteg/SimpleWebRTC",
+  "_release": "master",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "85b8f831c37f19b6155cca344994582293a28481"
+  },
+  "_source": "git@github.com:HenrikJoreteg/SimpleWebRTC.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:HenrikJoreteg/SimpleWebRTC.git"
+}

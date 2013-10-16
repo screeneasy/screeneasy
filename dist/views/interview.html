@@ -1,0 +1,66 @@
+<div id="container">
+    <div id="interview">
+        <div class="profile row">
+          <div class="col-md-3">
+              <span class="col-xs-6">
+                  <h4>{{developer.profile.basic.name}}</h4>
+                  <p>{{developer.profile.basic.location}}</p>
+              </span>
+              <img ng-src="{{developer.profile.basic.avatar_url}}" class="img-thumbnail">
+              <p>
+              <ul class="list-group">
+                <li class="list-group-item">
+                Followers <span class="badge">{{developer.profile.basic.followers}}</span>
+                </li>
+                <li class="list-group-item">
+                Following <span class="badge">{{developer.profile.basic.following}}</span>
+                </li>
+                <li class="list-group-item">
+                Gists <span class="badge">{{developer.profile.basic.public_gists}}</span>
+                </li>
+                <li class="list-group-item">
+                Repos <span class="badge">{{developer.profile.basic.public_repos}}</span>
+                </li>
+              </ul>
+          </div>
+          <div class="col-md-6">
+                <tabset>
+                  <tab>
+                      <tab-heading>
+                          <i class="icon-code-fork"></i> Contributed Repos
+                      </tab-heading>
+                      <ul class="profile_widget" ng-repeat="repo in developer.profile.contributed_repos">
+                        <li>{{repo.name}} - {{repo.description}}</li>
+                      </ul>
+                  </tab>
+                  <tab>
+                      <tab-heading>
+                          <i class="icon-code"></i> Contributed Repos
+                      </tab-heading>
+                      <ul ng-repeat="repo in developer.profile.own_repos">
+                        <li>{{repo.name}} - {{repo.description}}</li>
+                      </ul>
+                  </tab>
+                  <tab>
+                      <tab-heading>
+                        <i class="icon-file"></i> Gists
+                      </tab-heading>
+                      <ul ng-repeat="gist in developer.profile.gists">
+                        <li>{{gist.description}} ({{gist.html_url}})</li>
+                      </ul>
+                  </tab>
+                </tabset>
+          </div>
+          <div id="video-share" class="col-md-6">
+              <screenshare room="{{hash}}"></screenshare>
+          </div>
+        </div>
+
+        <div class="row" ng-repeat="question in techQuestions">
+           <h3 class="interview_coding_questions">{{question.title}}</h3>
+           <fireace firebaseurl="https://screeneasy.firebaseIO.com/interview/questions/{{hash}}/{{question.id}}"></fireace>
+        </div>
+        <br>
+        <input type="submit" class="btn" value="End Interview">
+    </div>
+</div>
