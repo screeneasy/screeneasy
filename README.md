@@ -11,5 +11,8 @@ ScreenEasy app
 
 # Deploy
 ```
+- bower install
+- grunt build
+- cp -rf app/bower_components dist
 - git push heroku master
 ```
